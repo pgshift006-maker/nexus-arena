@@ -30,7 +30,7 @@ export default function PerfilPage() {
       .from('posts')
       .select(`
         *,
-        author:profiles(name, avatar_url),
+        author:profiles!posts_author_id_fkey(name, avatar_url),
         hashtags:post_hashtags(tag),
         liked_by:post_likes(user_id)
       `)

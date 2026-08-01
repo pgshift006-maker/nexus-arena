@@ -9,7 +9,7 @@ async function fetchPosts(supabase, eventoId) {
     .from('posts')
     .select(`
       *,
-      author:profiles(name, avatar_url),
+      author:profiles!posts_author_id_fkey(name, avatar_url),
       hashtags:post_hashtags(tag),
       liked_by:post_likes(user_id)
     `)
@@ -19,7 +19,8 @@ async function fetchPosts(supabase, eventoId) {
   if (eventoId) query = query.eq('event_id', eventoId)
   else query = query.is('event_id', null)
 
-  const { data } = await query
+  const { data, error } = await query
+  if (error) console.error('fetchPosts:', error.message)
   return data ?? []
 }
 

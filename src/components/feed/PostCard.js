@@ -10,7 +10,7 @@ import CommentSection from './CommentSection'
 
 export default function PostCard({ post }) {
   const { user } = useAuth()
-  const { author, content, created_at, likes_count, hashtags, liked_by } = post
+  const { author, content, image_url, created_at, likes_count, hashtags, liked_by } = post
 
   const alreadyLiked = liked_by?.some(l => l.user_id === user?.id) ?? false
   const [liked, setLiked] = useState(alreadyLiked)
@@ -58,6 +58,15 @@ export default function PostCard({ post }) {
           )}
         </div>
       </div>
+
+      {image_url && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={image_url}
+          alt=""
+          className="w-full max-h-[520px] object-cover rounded-xl mt-3"
+        />
+      )}
 
       {/* Ações estilo Instagram: ícones sem texto */}
       <div className="flex items-center gap-5 mt-3">
