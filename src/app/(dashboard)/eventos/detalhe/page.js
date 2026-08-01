@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Trophy, Users, Calendar, ArrowLeft, Zap, Settings } from 'lucide-react'
+import { Trophy, Users, Calendar, ArrowLeft, Zap, Settings, BarChart3 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 
@@ -84,7 +84,7 @@ function EventoDetalheContent() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
           href={`/eventos/equipes?id=${id}`}
           className="bg-gray-900 border border-gray-800 hover:border-indigo-700 rounded-2xl p-6 transition-colors group"
@@ -101,6 +101,15 @@ function EventoDetalheContent() {
           <Trophy className="text-indigo-400 mb-3" size={24} />
           <h2 className="text-white font-semibold text-lg">Confrontos</h2>
           <p className="text-gray-400 text-sm mt-1">Acompanhe placares e enquetes ao vivo</p>
+        </Link>
+
+        <Link
+          href={`/eventos/pontuacao?id=${id}`}
+          className="bg-gray-900 border border-gray-800 hover:border-indigo-700 rounded-2xl p-6 transition-colors group"
+        >
+          <BarChart3 className="text-indigo-400 mb-3" size={24} />
+          <h2 className="text-white font-semibold text-lg">Classificação</h2>
+          <p className="text-gray-400 text-sm mt-1">Tabela de pontos e ranking das equipes</p>
         </Link>
 
         <Link
