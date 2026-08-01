@@ -2,3 +2,7 @@ name = "nexus-arena"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
+
+[vars]
+NEXT_PUBLIC_SUPABASE_URL = "https://pwvggvrkhgocilvwwykj.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3dmdndnJraGdvY2lsdnd3eWtqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1OTAwODcsImV4cCI6MjEwMTE2NjA4N30.FVsiy1hfF3GJLXLnXxDrhD417-8Eavxp5_2s5ZR682E"
