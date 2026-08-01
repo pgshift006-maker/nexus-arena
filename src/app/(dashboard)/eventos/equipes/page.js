@@ -82,19 +82,23 @@ function EquipesContent() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-white">Equipes</h1>
-          <p className="text-gray-400 text-sm mt-1">Entre em uma equipe para torcer e competir</p>
+          <p className="text-gray-400 text-sm mt-1">
+            {isAdmin ? 'Crie equipes e adicione os jogadores' : 'Acompanhe as equipes da competição'}
+          </p>
         </div>
-        <button
-          onClick={() => setCriando(true)}
-          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm"
-        >
-          <Plus size={16} />
-          Nova equipe
-        </button>
+        {isAdmin && (
+          <button
+            onClick={() => setCriando(true)}
+            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm"
+          >
+            <Plus size={16} />
+            Nova equipe
+          </button>
+        )}
       </div>
 
       {/* Modal criar equipe */}
-      {criando && (
+      {isAdmin && criando && (
         <div className="bg-gray-900 border border-indigo-700 rounded-2xl p-5 mb-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-white font-semibold">Nova equipe</h2>
@@ -160,12 +164,14 @@ function EquipesContent() {
       ) : equipes.length === 0 ? (
         <div className="text-center py-16 text-gray-500">
           <p className="text-sm">Nenhuma equipe criada ainda.</p>
-          <button
-            onClick={() => setCriando(true)}
-            className="text-indigo-400 hover:text-indigo-300 text-sm mt-2 inline-block"
-          >
-            Criar a primeira equipe
-          </button>
+          {isAdmin && (
+            <button
+              onClick={() => setCriando(true)}
+              className="text-indigo-400 hover:text-indigo-300 text-sm mt-2 inline-block"
+            >
+              Criar a primeira equipe
+            </button>
+          )}
         </div>
       ) : (
         <div className="grid gap-4">

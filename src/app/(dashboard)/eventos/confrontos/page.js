@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Plus, X } from 'lucide-react'
+import { ArrowLeft, Plus, X, Sparkles } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 import ConfrontoCard from '@/components/eventos/ConfrontoCard'
@@ -11,14 +11,19 @@ import ConfrontoCard from '@/components/eventos/ConfrontoCard'
 function ConfrontosContent() {
   const searchParams  = useSearchParams()
   const eventoId      = searchParams.get('id')
-  const { user }      = useAuth()
+  const { user, profile } = useAuth()
+  const isAdmin       = profile?.role === 'admin'
 
-  const [evento,    setEvento]    = useState(null)
-  const [matches,   setMatches]   = useState([])
-  const [teams,     setTeams]     = useState([])
+  const [evento,      setEvento]      = useState(null)
+  const [matches,     setMatches]     = useState([])
+  const [teams,       setTeams]       = useState([])
+  const [modalidades, setModalidades] = useState([])
+  const [modalidadeAtiva, setModalidadeAtiva] = useState('todas')
+  const [novaModalidade, setNovaModalidade] = useState('')
+  const [criandoModalidade, setCriandoModalidade] = useState(false)
   const [loading,   setLoading]   = useState(true)
   const [criando,   setCriando]   = useState(false)
-  const [form,      setForm]      = useState({ team_a_id: '', team_b_id: '', scheduled_at: '' })
+  const [form,      setForm]      = useState({ team_a_id: '', team_b_id: '', modalidade_id: '', scheduled_at: '' })
   const [saving,    setSaving]    = useState(false)
   const [formError, setFormError] = useState('')
 
@@ -26,7 +31,7 @@ function ConfrontosContent() {
     if (!eventoId || !user) return
     const supabase = createClient()
 
-    const [{ data: ev }, { data: tm }, { data: mt }] = await Promise.all([
+    const [{ data: ev }, { data: tm }, { data: mt }, { data: mo }] = await Promise.all([
       supabase.from('events').select('*').eq('id', eventoId).single(),
       supabase.from('teams').select('*').eq('event_id', eventoId).order('name'),
       supabase
@@ -34,11 +39,13 @@ function ConfrontosContent() {
         .select('*, polls(*, poll_votes(*))')
         .eq('event_id', eventoId)
         .order('created_at'),
+      supabase.from('modalidades').select('*').eq('event_id', eventoId).order('created_at'),
     ])
 
     setEvento(ev)
     setTeams(tm ?? [])
     setMatches(mt ?? [])
+    setModalidades(mo ?? [])
     setLoading(false)
   }
 
@@ -55,10 +62,29 @@ function ConfrontosContent() {
       .on('postgres_changes', { event: '*', schema: 'public', table: 'matches',    filter: `event_id=eq.${eventoId}` }, load)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'poll_votes' }, load)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'polls' },      load)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'modalidades', filter: `event_id=eq.${eventoId}` }, load)
       .subscribe()
 
     return () => supabase.removeChannel(channel)
   }, [eventoId, user])
+
+  async function handleCriarModalidade(e) {
+    e.preventDefault()
+    if (!novaModalidade.trim()) return
+    setCriandoModalidade(true)
+    const supabase = createClient()
+    const { data } = await supabase
+      .from('modalidades')
+      .insert({ event_id: eventoId, name: novaModalidade.trim() })
+      .select()
+      .single()
+    setNovaModalidade('')
+    setCriandoModalidade(false)
+    if (data) {
+      setModalidades(prev => [...prev, data])
+      setForm(p => ({ ...p, modalidade_id: data.id }))
+    }
+  }
 
   async function handleCriar(e) {
     e.preventDefault()
@@ -68,24 +94,32 @@ function ConfrontosContent() {
       setFormError('Selecione equipes diferentes.')
       return
     }
+    if (!form.modalidade_id) {
+      setFormError('Selecione a modalidade.')
+      return
+    }
 
     setSaving(true)
     const supabase = createClient()
     await supabase.from('matches').insert({
-      event_id:     eventoId,
-      team_a_id:    form.team_a_id,
-      team_b_id:    form.team_b_id,
-      scheduled_at: form.scheduled_at || null,
-      status:       'aguardando',
+      event_id:      eventoId,
+      team_a_id:     form.team_a_id,
+      team_b_id:     form.team_b_id,
+      modalidade_id: form.modalidade_id,
+      scheduled_at:  form.scheduled_at || null,
+      status:        'aguardando',
     })
 
-    setForm({ team_a_id: '', team_b_id: '', scheduled_at: '' })
+    setForm({ team_a_id: '', team_b_id: '', modalidade_id: '', scheduled_at: '' })
     setCriando(false)
     setSaving(false)
   }
 
   const teamMap = Object.fromEntries(teams.map(t => [t.id, t]))
-  const isAdmin = evento?.created_by === user?.id
+  const modalidadeMap = Object.fromEntries(modalidades.map(m => [m.id, m]))
+  const matchesFiltrados = modalidadeAtiva === 'todas'
+    ? matches
+    : matches.filter(m => m.modalidade_id === modalidadeAtiva)
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-6">
@@ -115,6 +149,52 @@ function ConfrontosContent() {
         )}
       </div>
 
+      {/* Modalidades (esportes da gincana) */}
+      {(modalidades.length > 0 || isAdmin) && (
+        <div className="flex items-center gap-2 mb-5 overflow-x-auto pb-1">
+          <button
+            onClick={() => setModalidadeAtiva('todas')}
+            className={`shrink-0 text-xs font-medium px-3 py-1.5 rounded-full border transition-colors ${
+              modalidadeAtiva === 'todas'
+                ? 'bg-indigo-600 border-indigo-600 text-white'
+                : 'border-gray-700 text-gray-400 hover:text-white'
+            }`}
+          >
+            Todas
+          </button>
+          {modalidades.map(m => (
+            <button
+              key={m.id}
+              onClick={() => setModalidadeAtiva(m.id)}
+              className={`shrink-0 text-xs font-medium px-3 py-1.5 rounded-full border transition-colors ${
+                modalidadeAtiva === m.id
+                  ? 'bg-indigo-600 border-indigo-600 text-white'
+                  : 'border-gray-700 text-gray-400 hover:text-white'
+              }`}
+            >
+              {m.name}
+            </button>
+          ))}
+          {isAdmin && (
+            <form onSubmit={handleCriarModalidade} className="flex items-center gap-1.5 shrink-0">
+              <input
+                value={novaModalidade}
+                onChange={e => setNovaModalidade(e.target.value)}
+                placeholder="Nova modalidade"
+                className="w-32 bg-gray-800 border border-dashed border-gray-700 rounded-full px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+              />
+              <button
+                type="submit"
+                disabled={criandoModalidade || !novaModalidade.trim()}
+                className="text-indigo-400 hover:text-indigo-300 disabled:opacity-40 shrink-0"
+              >
+                <Sparkles size={16} />
+              </button>
+            </form>
+          )}
+        </div>
+      )}
+
       {/* Formulário criar confronto */}
       {criando && (
         <div className="bg-gray-900 border border-indigo-700 rounded-2xl p-5 mb-5">
@@ -130,8 +210,25 @@ function ConfrontosContent() {
               Você precisa de pelo menos 2 equipes para criar um confronto.{' '}
               <Link href={`/eventos/equipes?id=${eventoId}`} className="underline">Criar equipes</Link>
             </p>
+          ) : modalidades.length === 0 ? (
+            <p className="text-yellow-400 text-sm">
+              Crie pelo menos uma modalidade (ex: Futebol, Vôlei) acima antes de criar o confronto.
+            </p>
           ) : (
             <form onSubmit={handleCriar} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1.5">Modalidade</label>
+                <select
+                  value={form.modalidade_id}
+                  onChange={e => setForm(p => ({ ...p, modalidade_id: e.target.value }))}
+                  required
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                >
+                  <option value="">Selecione...</option>
+                  {modalidades.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
+                </select>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1.5">Equipe A</label>
@@ -199,7 +296,7 @@ function ConfrontosContent() {
         <div className="space-y-4">
           {[1, 2].map(i => <div key={i} className="bg-gray-900 border border-gray-800 rounded-2xl p-5 animate-pulse h-40" />)}
         </div>
-      ) : matches.length === 0 ? (
+      ) : matchesFiltrados.length === 0 ? (
         <div className="text-center py-16 text-gray-500 text-sm">
           {isAdmin
             ? <><p>Nenhum confronto criado.</p><button onClick={() => setCriando(true)} className="text-indigo-400 hover:text-indigo-300 mt-2 inline-block">Criar o primeiro confronto</button></>
@@ -208,14 +305,20 @@ function ConfrontosContent() {
         </div>
       ) : (
         <div className="grid gap-4">
-          {matches.map(match => (
-            <ConfrontoCard
-              key={match.id}
-              match={match}
-              teamMap={teamMap}
-              currentUserId={user?.id}
-              isAdmin={isAdmin}
-            />
+          {matchesFiltrados.map(match => (
+            <div key={match.id}>
+              {modalidadeAtiva === 'todas' && modalidadeMap[match.modalidade_id] && (
+                <p className="text-indigo-400 text-xs font-medium mb-1.5 ml-1">
+                  {modalidadeMap[match.modalidade_id].name}
+                </p>
+              )}
+              <ConfrontoCard
+                match={match}
+                teamMap={teamMap}
+                currentUserId={user?.id}
+                isAdmin={isAdmin}
+              />
+            </div>
           ))}
         </div>
       )}

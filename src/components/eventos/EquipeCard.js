@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Users, LogIn, LogOut, UserPlus, X, Search } from 'lucide-react'
+import { Users, LogOut, UserPlus, X, Search } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { getInitials } from '@/lib/utils'
 
@@ -14,20 +14,6 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
   const isMine = myTeamId === equipe.id
   const members = (equipe.members ?? []).filter(m => m.profile)
   const memberIds = members.map(m => m.profile.id)
-
-  async function handleJoin() {
-    setLoading(true)
-    const supabase = createClient()
-
-    // Sai da equipe atual se tiver
-    if (myTeamId) {
-      await supabase.from('team_members').delete().match({ user_id: currentUserId, team_id: myTeamId })
-    }
-
-    await supabase.from('team_members').insert({ team_id: equipe.id, user_id: currentUserId })
-    setLoading(false)
-    onUpdate()
-  }
 
   async function handleLeave() {
     setLoading(true)
@@ -96,7 +82,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
           </div>
         </div>
 
-        {isMine ? (
+        {isMine && (
           <button
             onClick={handleLeave}
             disabled={loading}
@@ -104,15 +90,6 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
           >
             <LogOut size={13} />
             Sair
-          </button>
-        ) : (
-          <button
-            onClick={handleJoin}
-            disabled={loading}
-            className="flex items-center gap-1.5 text-xs text-indigo-300 border border-indigo-800 hover:bg-indigo-950 px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50"
-          >
-            <LogIn size={13} />
-            Entrar
           </button>
         )}
       </div>
