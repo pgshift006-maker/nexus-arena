@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { Heart, MessageCircle } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
-import { timeAgo, getInitials } from '@/lib/utils'
+import { timeAgo } from '@/lib/utils'
+import Avatar from '@/components/ui/Avatar'
 import CommentSection from './CommentSection'
 
 export default function PostCard({ post }) {
@@ -39,9 +40,7 @@ export default function PostCard({ post }) {
   return (
     <div className="bg-gray-900 border-b border-gray-800 sm:border sm:rounded-2xl p-4 sm:mb-3">
       <div className="flex gap-3">
-        <div className="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
-          {getInitials(author?.name)}
-        </div>
+        <Avatar name={author?.name} url={author?.avatar_url} size={36} />
         <div className="flex-1 min-w-0">
           <div className="flex items-baseline gap-2">
             <span className="text-white font-medium text-sm">{author?.name ?? 'Usuário'}</span>

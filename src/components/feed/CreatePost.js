@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Hash, Send } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
-import { getInitials } from '@/lib/utils'
+import Avatar from '@/components/ui/Avatar'
 
 function extractHashtags(text) {
   return [...text.matchAll(/#(\w+)/g)].map(m => m[1].toLowerCase())
@@ -44,9 +44,7 @@ export default function CreatePost({ eventoId = null }) {
   return (
     <div className="bg-gray-900 border-b border-gray-800 sm:border sm:rounded-2xl p-4 mb-4">
       <div className="flex gap-3">
-        <div className="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
-          {getInitials(profile?.name ?? '?')}
-        </div>
+        <Avatar name={profile?.name} url={profile?.avatar_url} size={36} />
         <div className="flex-1">
           <textarea
             value={content}

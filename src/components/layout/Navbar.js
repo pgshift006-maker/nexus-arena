@@ -7,7 +7,8 @@ import { Bell, LogOut, Check, Trophy } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 import { useNotifications } from '@/hooks/useNotifications'
-import { getInitials, timeAgo } from '@/lib/utils'
+import { timeAgo } from '@/lib/utils'
+import Avatar from '@/components/ui/Avatar'
 
 export default function Navbar() {
   const { profile } = useAuth()
@@ -112,9 +113,7 @@ export default function Navbar() {
 
         {/* Avatar + nome */}
         <div className="flex items-center gap-2 ml-1">
-          <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">
-            {getInitials(profile?.name ?? '?')}
-          </div>
+          <Avatar name={profile?.name} url={profile?.avatar_url} size={32} />
           <span className="text-sm text-gray-300 hidden sm:block">{profile?.name ?? '...'}</span>
         </div>
 

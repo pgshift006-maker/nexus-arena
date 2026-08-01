@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Users, LogOut, UserPlus, X, Search } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import { getInitials } from '@/lib/utils'
+import Avatar from '@/components/ui/Avatar'
 
 export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, onUpdate }) {
   const [loading, setLoading] = useState(false)
@@ -33,7 +33,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
     const supabase = createClient()
     const { data } = await supabase
       .from('profiles')
-      .select('id, name')
+      .select('id, name, avatar_url')
       .ilike('name', `%${value.trim()}%`)
       .limit(6)
     setResults((data ?? []).filter(p => !memberIds.includes(p.id)))
@@ -98,9 +98,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
         <div className="flex flex-wrap gap-2 mt-4">
           {members.map(({ profile }) => (
             <div key={profile.id} className="flex items-center gap-1.5 bg-gray-800 rounded-full px-2.5 py-1">
-              <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
-                {getInitials(profile.name)}
-              </div>
+              <Avatar name={profile.name} url={profile.avatar_url} size={20} />
               <span className="text-gray-300 text-xs">{profile.name}</span>
             </div>
           ))}
@@ -152,9 +150,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
                     disabled={loading}
                     className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-gray-800 transition-colors text-left disabled:opacity-50"
                   >
-                    <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
-                      {getInitials(p.name)}
-                    </div>
+                    <Avatar name={p.name} url={p.avatar_url} size={24} />
                     <span className="text-gray-200 text-sm flex-1">{p.name}</span>
                     <UserPlus size={14} className="text-indigo-400" />
                   </button>

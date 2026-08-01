@@ -9,7 +9,7 @@ async function fetchPosts(supabase, eventoId) {
     .from('posts')
     .select(`
       *,
-      author:profiles(name),
+      author:profiles(name, avatar_url),
       hashtags:post_hashtags(tag),
       liked_by:post_likes(user_id)
     `)

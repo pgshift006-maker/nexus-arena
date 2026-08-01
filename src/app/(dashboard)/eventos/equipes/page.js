@@ -34,7 +34,7 @@ function EquipesContent() {
       supabase.from('events').select('name, created_by').eq('id', eventoId).single(),
       supabase
         .from('teams')
-        .select(`*, members:team_members(profile:profiles(id, name))`)
+        .select(`*, members:team_members(profile:profiles(id, name, avatar_url))`)
         .eq('event_id', eventoId)
         .order('created_at'),
     ])
