@@ -12,8 +12,8 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
   const [results, setResults] = useState([])
   const [searching, setSearching] = useState(false)
   const isMine = myTeamId === equipe.id
-  const members = equipe.members ?? []
-  const memberIds = members.map(m => m.profile?.id)
+  const members = (equipe.members ?? []).filter(m => m.profile)
+  const memberIds = members.map(m => m.profile.id)
 
   async function handleJoin() {
     setLoading(true)
