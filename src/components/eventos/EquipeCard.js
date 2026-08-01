@@ -1,14 +1,19 @@
 'use client'
 
 import { useState } from 'react'
-import { Users, LogIn, LogOut } from 'lucide-react'
+import { Users, LogIn, LogOut, UserPlus, X, Search } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { getInitials } from '@/lib/utils'
 
-export default function EquipeCard({ equipe, currentUserId, myTeamId, onUpdate }) {
+export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, onUpdate }) {
   const [loading, setLoading] = useState(false)
+  const [adding, setAdding] = useState(false)
+  const [search, setSearch] = useState('')
+  const [results, setResults] = useState([])
+  const [searching, setSearching] = useState(false)
   const isMine = myTeamId === equipe.id
   const members = equipe.members ?? []
+  const memberIds = members.map(m => m.profile?.id)
 
   async function handleJoin() {
     setLoading(true)
@@ -29,6 +34,42 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, onUpdate }
     const supabase = createClient()
     await supabase.from('team_members').delete().match({ team_id: equipe.id, user_id: currentUserId })
     setLoading(false)
+    onUpdate()
+  }
+
+  async function handleSearch(value) {
+    setSearch(value)
+    if (!value.trim()) {
+      setResults([])
+      return
+    }
+    setSearching(true)
+    const supabase = createClient()
+    const { data } = await supabase
+      .from('profiles')
+      .select('id, name')
+      .ilike('name', `%${value.trim()}%`)
+      .limit(6)
+    setResults((data ?? []).filter(p => !memberIds.includes(p.id)))
+    setSearching(false)
+  }
+
+  async function handleAddPlayer(userId) {
+    setLoading(true)
+    const supabase = createClient()
+
+    // Remove de qualquer outra equipe do mesmo evento antes de adicionar nesta
+    const { data: teamsInEvent } = await supabase.from('teams').select('id').eq('event_id', equipe.event_id)
+    const teamIds = (teamsInEvent ?? []).map(t => t.id)
+    if (teamIds.length > 0) {
+      await supabase.from('team_members').delete().eq('user_id', userId).in('team_id', teamIds)
+    }
+
+    await supabase.from('team_members').insert({ team_id: equipe.id, user_id: userId })
+    setLoading(false)
+    setSearch('')
+    setResults([])
+    setAdding(false)
     onUpdate()
   }
 
@@ -76,7 +117,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, onUpdate }
         )}
       </div>
 
-      {members.length > 0 && (
+      {(members.length > 0 || isAdmin) && (
         <div className="flex flex-wrap gap-2 mt-4">
           {members.map(({ profile }) => (
             <div key={profile.id} className="flex items-center gap-1.5 bg-gray-800 rounded-full px-2.5 py-1">
@@ -86,6 +127,64 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, onUpdate }
               <span className="text-gray-300 text-xs">{profile.name}</span>
             </div>
           ))}
+
+          {isAdmin && !adding && (
+            <button
+              onClick={() => setAdding(true)}
+              className="flex items-center gap-1.5 border border-dashed border-gray-700 hover:border-indigo-700 text-gray-400 hover:text-indigo-300 rounded-full px-2.5 py-1 text-xs transition-colors"
+            >
+              <UserPlus size={13} />
+              Adicionar jogador
+            </button>
+          )}
+        </div>
+      )}
+
+      {isAdmin && adding && (
+        <div className="mt-4 bg-gray-800/60 border border-gray-700 rounded-xl p-3">
+          <div className="flex items-center gap-2">
+            <div className="flex-1 flex items-center gap-2 bg-gray-900 border border-gray-700 rounded-lg px-3 py-2">
+              <Search size={14} className="text-gray-500" />
+              <input
+                autoFocus
+                value={search}
+                onChange={e => handleSearch(e.target.value)}
+                placeholder="Buscar jogador pelo nome..."
+                className="flex-1 bg-transparent text-white text-sm placeholder-gray-500 focus:outline-none"
+              />
+            </div>
+            <button
+              onClick={() => { setAdding(false); setSearch(''); setResults([]) }}
+              className="text-gray-500 hover:text-white transition-colors"
+            >
+              <X size={16} />
+            </button>
+          </div>
+
+          {search.trim() && (
+            <div className="mt-2 space-y-1">
+              {searching ? (
+                <p className="text-gray-500 text-xs px-1 py-2">Buscando...</p>
+              ) : results.length === 0 ? (
+                <p className="text-gray-500 text-xs px-1 py-2">Nenhum jogador encontrado.</p>
+              ) : (
+                results.map(p => (
+                  <button
+                    key={p.id}
+                    onClick={() => handleAddPlayer(p.id)}
+                    disabled={loading}
+                    className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-gray-800 transition-colors text-left disabled:opacity-50"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                      {getInitials(p.name)}
+                    </div>
+                    <span className="text-gray-200 text-sm flex-1">{p.name}</span>
+                    <UserPlus size={14} className="text-indigo-400" />
+                  </button>
+                ))
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

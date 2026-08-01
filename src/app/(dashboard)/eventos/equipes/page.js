@@ -16,7 +16,8 @@ const CORES = [
 function EquipesContent() {
   const searchParams = useSearchParams()
   const eventoId = searchParams.get('id')
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
+  const isAdmin = profile?.role === 'admin'
   const [equipes, setEquipes] = useState([])
   const [eventoNome, setEventoNome] = useState('')
   const [loading, setLoading] = useState(true)
@@ -174,6 +175,7 @@ function EquipesContent() {
               equipe={equipe}
               currentUserId={user?.id}
               myTeamId={myTeamId}
+              isAdmin={isAdmin}
               onUpdate={load}
             />
           ))}
