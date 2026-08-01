@@ -11,8 +11,7 @@ import ConfrontoCard from '@/components/eventos/ConfrontoCard'
 function ConfrontosContent() {
   const searchParams  = useSearchParams()
   const eventoId      = searchParams.get('id')
-  const { user, profile } = useAuth()
-  const isAdmin       = profile?.role === 'admin'
+  const { user } = useAuth()
 
   const [evento,      setEvento]      = useState(null)
   const [matches,     setMatches]     = useState([])
@@ -115,6 +114,7 @@ function ConfrontosContent() {
     setSaving(false)
   }
 
+  const isAdmin = evento?.created_by === user?.id
   const teamMap = Object.fromEntries(teams.map(t => [t.id, t]))
   const modalidadeMap = Object.fromEntries(modalidades.map(m => [m.id, m]))
   const matchesFiltrados = modalidadeAtiva === 'todas'

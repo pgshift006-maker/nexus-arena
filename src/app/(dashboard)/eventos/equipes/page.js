@@ -16,10 +16,10 @@ const CORES = [
 function EquipesContent() {
   const searchParams = useSearchParams()
   const eventoId = searchParams.get('id')
-  const { user, profile } = useAuth()
-  const isAdmin = profile?.role === 'admin'
+  const { user } = useAuth()
+  const [evento, setEvento] = useState(null)
+  const isAdmin = evento?.created_by === user?.id
   const [equipes, setEquipes] = useState([])
-  const [eventoNome, setEventoNome] = useState('')
   const [loading, setLoading] = useState(true)
   const [criando, setCriando] = useState(false)
   const [novaEquipe, setNovaEquipe] = useState({ name: '', color: CORES[0] })
@@ -31,7 +31,7 @@ function EquipesContent() {
     const supabase = createClient()
 
     const [{ data: ev }, { data: tm }] = await Promise.all([
-      supabase.from('events').select('name').eq('id', eventoId).single(),
+      supabase.from('events').select('name, created_by').eq('id', eventoId).single(),
       supabase
         .from('teams')
         .select(`*, members:team_members(profile:profiles(id, name))`)
@@ -39,7 +39,7 @@ function EquipesContent() {
         .order('created_at'),
     ])
 
-    setEventoNome(ev?.name ?? '')
+    setEvento(ev)
     setEquipes(tm ?? [])
 
     // Descobre a equipe do usuário atual
@@ -76,7 +76,7 @@ function EquipesContent() {
         className="flex items-center gap-2 text-gray-400 hover:text-white text-sm mb-6 transition-colors"
       >
         <ArrowLeft size={16} />
-        {eventoNome || 'Voltar ao evento'}
+        {evento?.name || 'Voltar ao evento'}
       </Link>
 
       <div className="flex items-center justify-between mb-6">
