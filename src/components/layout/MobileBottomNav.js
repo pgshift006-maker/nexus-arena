@@ -7,10 +7,10 @@ import { cn } from '@/lib/utils'
 import { useNotifications } from '@/hooks/useNotifications'
 
 const navItems = [
-  { href: '/feed',         icon: Rss,    label: 'Feed'    },
-  { href: '/eventos',      icon: Trophy, label: 'Eventos' },
-  { href: '/notificacoes', icon: Bell,   label: 'Avisos'  },
-  { href: '/perfil',       icon: User,   label: 'Perfil'  },
+  { href: '/feed',         icon: Rss    },
+  { href: '/eventos',      icon: Trophy },
+  { href: '/notificacoes', icon: Bell   },
+  { href: '/perfil',       icon: User   },
 ]
 
 export default function MobileBottomNav() {
@@ -18,8 +18,8 @@ export default function MobileBottomNav() {
   const { unread } = useNotifications()
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-gray-900 border-t border-gray-800 flex items-stretch h-14">
-      {navItems.map(({ href, icon: Icon, label }) => {
+    <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-gray-900/90 backdrop-blur-md border border-gray-800 rounded-full shadow-lg shadow-black/40 flex items-center gap-1 px-2 py-2">
+      {navItems.map(({ href, icon: Icon }) => {
         const active = pathname.startsWith(href)
         const isBell = href === '/notificacoes'
         return (
@@ -27,19 +27,16 @@ export default function MobileBottomNav() {
             key={href}
             href={href}
             className={cn(
-              'flex-1 flex flex-col items-center justify-center gap-0.5 text-xs transition-colors',
-              active ? 'text-indigo-400' : 'text-gray-500'
+              'relative flex items-center justify-center w-11 h-11 rounded-full transition-colors',
+              active ? 'bg-gray-800 text-white' : 'text-gray-500 hover:text-gray-300'
             )}
           >
-            <div className="relative">
-              <Icon size={22} strokeWidth={active ? 2.2 : 1.8} />
-              {isBell && unread > 0 && (
-                <span className="absolute -top-1 -right-1.5 min-w-[16px] h-4 px-1 bg-indigo-500 rounded-full text-white text-[10px] flex items-center justify-center font-bold leading-none">
-                  {unread > 9 ? '9+' : unread}
-                </span>
-              )}
-            </div>
-            {label}
+            <Icon size={22} strokeWidth={active ? 2.2 : 1.8} />
+            {isBell && unread > 0 && (
+              <span className="absolute top-1 right-1.5 min-w-[15px] h-[15px] px-0.5 bg-indigo-500 rounded-full text-white text-[9px] flex items-center justify-center font-bold leading-none">
+                {unread > 9 ? '9+' : unread}
+              </span>
+            )}
           </Link>
         )
       })}
