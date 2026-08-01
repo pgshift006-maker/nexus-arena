@@ -2,17 +2,49 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Crown } from 'lucide-react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 
+function UpgradePrompt() {
+  return (
+    <div className="max-w-2xl mx-auto px-4 py-6">
+      <Link href="/eventos" className="flex items-center gap-2 text-gray-400 hover:text-white text-sm mb-6 transition-colors">
+        <ArrowLeft size={16} />
+        Voltar para eventos
+      </Link>
+
+      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
+        <div className="w-12 h-12 rounded-full bg-indigo-600/20 text-indigo-400 flex items-center justify-center mx-auto mb-4">
+          <Crown size={22} />
+        </div>
+        <h1 className="text-xl font-bold text-white mb-2">Criar eventos é um recurso administrador</h1>
+        <p className="text-gray-400 text-sm max-w-md mx-auto mb-6">
+          Alunos e professores podem participar de eventos e gincanas livremente.
+          Para criar e organizar um evento, faça upgrade para o plano administrador.
+        </p>
+        <button
+          disabled
+          className="bg-indigo-600 opacity-50 cursor-not-allowed text-white font-semibold px-6 py-2.5 rounded-lg text-sm"
+        >
+          Fazer upgrade (em breve)
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export default function NovoEventoPage() {
   const router = useRouter()
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
   const [form, setForm] = useState({ name: '', description: '', start_date: '', end_date: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  if (profile && profile.role !== 'admin') {
+    return <UpgradePrompt />
+  }
 
   function handleChange(e) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
