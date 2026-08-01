@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useId } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 
 export function useNotifications() {
   const { user } = useAuth()
+  const instanceId = useId()
   const [notifications, setNotifications] = useState([])
   const [unread, setUnread] = useState(0)
 
@@ -30,14 +31,14 @@ export function useNotifications() {
     if (!userId) return
     const supabase = createClient()
     const channel = supabase
-      .channel('notifications-realtime')
+      .channel(`notifications-realtime-${instanceId}`)
       .on('postgres_changes', {
         event: 'INSERT', schema: 'public', table: 'notifications',
         filter: `user_id=eq.${userId}`,
       }, () => load())
       .subscribe()
     return () => supabase.removeChannel(channel)
-  }, [userId, load])
+  }, [userId, load, instanceId])
 
   async function markAllRead() {
     if (!user) return
