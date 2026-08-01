@@ -14,7 +14,7 @@ export default function EventoCard({ evento }) {
   return (
     <Link
       href={`/eventos/detalhe?id=${evento.id}`}
-      className="bg-gray-900 border border-gray-800 hover:border-indigo-700 rounded-2xl p-5 flex items-center justify-between transition-colors group"
+      className="bg-gray-900 border border-gray-800 hover:border-red-700 rounded-2xl p-5 flex items-center justify-between transition-colors group"
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-2">
@@ -39,7 +39,7 @@ export default function EventoCard({ evento }) {
           )}
         </div>
       </div>
-      <ChevronRight className="text-gray-600 group-hover:text-indigo-400 transition-colors ml-4 shrink-0" size={20} />
+      <ChevronRight className="text-gray-600 group-hover:text-red-400 transition-colors ml-4 shrink-0" size={20} />
     </Link>
   )
 }

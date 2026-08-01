@@ -103,7 +103,7 @@ export default function CreatePost({ eventoId = null }) {
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="text-gray-500 hover:text-indigo-400 transition-colors"
+                className="text-gray-500 hover:text-red-400 transition-colors"
                 title="Adicionar foto"
               >
                 <ImageIcon size={16} />
@@ -119,7 +119,7 @@ export default function CreatePost({ eventoId = null }) {
             <button
               onClick={handleSubmit}
               disabled={(!content.trim() && !imageFile) || loading}
-              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium px-4 py-1.5 rounded-lg transition-colors"
+              className="flex items-center gap-1.5 bg-red-600 hover:bg-red-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium px-4 py-1.5 rounded-lg transition-colors"
             >
               <Send size={14} />
               {loading ? 'Publicando...' : 'Publicar'}

@@ -45,7 +45,7 @@ export default function PerfilPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-red-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -111,7 +111,7 @@ export default function PerfilPage() {
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading}
-              className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-indigo-600 hover:bg-indigo-500 border-2 border-gray-950 flex items-center justify-center text-white transition-colors disabled:opacity-50"
+              className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-red-600 hover:bg-red-500 border-2 border-gray-950 flex items-center justify-center text-white transition-colors disabled:opacity-50"
               title="Alterar foto de perfil"
             >
               <Camera size={13} />
@@ -189,7 +189,7 @@ export default function PerfilPage() {
                 type="text"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
 
@@ -200,14 +200,14 @@ export default function PerfilPage() {
                 onChange={e => setBio(e.target.value)}
                 placeholder="Conte algo sobre você..."
                 rows={3}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors resize-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={saving}
-              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm"
+              className="flex items-center gap-2 bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm"
             >
               <Save size={15} />
               {saving ? 'Salvando...' : 'Salvar alterações'}

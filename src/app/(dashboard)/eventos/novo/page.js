@@ -16,7 +16,7 @@ function UpgradePrompt() {
       </Link>
 
       <div className="bg-gray-900 border border-gray-800 rounded-2xl p-8 text-center">
-        <div className="w-12 h-12 rounded-full bg-indigo-600/20 text-indigo-400 flex items-center justify-center mx-auto mb-4">
+        <div className="w-12 h-12 rounded-full bg-red-600/20 text-red-400 flex items-center justify-center mx-auto mb-4">
           <Crown size={22} />
         </div>
         <h1 className="text-xl font-bold text-white mb-2">Criar eventos é um recurso administrador</h1>
@@ -26,7 +26,7 @@ function UpgradePrompt() {
         </p>
         <button
           disabled
-          className="bg-indigo-600 opacity-50 cursor-not-allowed text-white font-semibold px-6 py-2.5 rounded-lg text-sm"
+          className="bg-red-600 opacity-50 cursor-not-allowed text-white font-semibold px-6 py-2.5 rounded-lg text-sm"
         >
           Fazer upgrade (em breve)
         </button>
@@ -91,7 +91,7 @@ export default function NovoEventoPage() {
               onChange={handleChange}
               placeholder="Ex: Gincana do Semestre 2026"
               required
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
             />
           </div>
 
@@ -103,7 +103,7 @@ export default function NovoEventoPage() {
               onChange={handleChange}
               placeholder="Descreva o evento..."
               rows={3}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors resize-none"
             />
           </div>
 
@@ -115,7 +115,7 @@ export default function NovoEventoPage() {
                 type="date"
                 value={form.start_date}
                 onChange={handleChange}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
@@ -125,7 +125,7 @@ export default function NovoEventoPage() {
                 type="date"
                 value={form.end_date}
                 onChange={handleChange}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function NovoEventoPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold py-2.5 rounded-lg transition-colors"
+            className="w-full bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-semibold py-2.5 rounded-lg transition-colors"
           >
             {loading ? 'Criando...' : 'Criar evento'}
           </button>

@@ -141,7 +141,7 @@ function ConfrontosContent() {
         {isAdmin && (
           <button
             onClick={() => setCriando(true)}
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm"
+            className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm"
           >
             <Plus size={16} />
             Novo confronto
@@ -156,7 +156,7 @@ function ConfrontosContent() {
             onClick={() => setModalidadeAtiva('todas')}
             className={`shrink-0 text-xs font-medium px-3 py-1.5 rounded-full border transition-colors ${
               modalidadeAtiva === 'todas'
-                ? 'bg-indigo-600 border-indigo-600 text-white'
+                ? 'bg-red-600 border-red-600 text-white'
                 : 'border-gray-700 text-gray-400 hover:text-white'
             }`}
           >
@@ -168,7 +168,7 @@ function ConfrontosContent() {
               onClick={() => setModalidadeAtiva(m.id)}
               className={`shrink-0 text-xs font-medium px-3 py-1.5 rounded-full border transition-colors ${
                 modalidadeAtiva === m.id
-                  ? 'bg-indigo-600 border-indigo-600 text-white'
+                  ? 'bg-red-600 border-red-600 text-white'
                   : 'border-gray-700 text-gray-400 hover:text-white'
               }`}
             >
@@ -181,12 +181,12 @@ function ConfrontosContent() {
                 value={novaModalidade}
                 onChange={e => setNovaModalidade(e.target.value)}
                 placeholder="Nova modalidade"
-                className="w-32 bg-gray-800 border border-dashed border-gray-700 rounded-full px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-32 bg-gray-800 border border-dashed border-gray-700 rounded-full px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
               <button
                 type="submit"
                 disabled={criandoModalidade || !novaModalidade.trim()}
-                className="text-indigo-400 hover:text-indigo-300 disabled:opacity-40 shrink-0"
+                className="text-red-400 hover:text-red-300 disabled:opacity-40 shrink-0"
               >
                 <Sparkles size={16} />
               </button>
@@ -197,7 +197,7 @@ function ConfrontosContent() {
 
       {/* Formulário criar confronto */}
       {criando && (
-        <div className="bg-gray-900 border border-indigo-700 rounded-2xl p-5 mb-5">
+        <div className="bg-gray-900 border border-red-700 rounded-2xl p-5 mb-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-white font-semibold">Novo confronto</h2>
             <button onClick={() => { setCriando(false); setFormError('') }} className="text-gray-500 hover:text-white transition-colors">
@@ -222,7 +222,7 @@ function ConfrontosContent() {
                   value={form.modalidade_id}
                   onChange={e => setForm(p => ({ ...p, modalidade_id: e.target.value }))}
                   required
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-red-500 transition-colors"
                 >
                   <option value="">Selecione...</option>
                   {modalidades.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
@@ -236,7 +236,7 @@ function ConfrontosContent() {
                     value={form.team_a_id}
                     onChange={e => setForm(p => ({ ...p, team_a_id: e.target.value }))}
                     required
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-red-500 transition-colors"
                   >
                     <option value="">Selecione...</option>
                     {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -248,7 +248,7 @@ function ConfrontosContent() {
                     value={form.team_b_id}
                     onChange={e => setForm(p => ({ ...p, team_b_id: e.target.value }))}
                     required
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-red-500 transition-colors"
                   >
                     <option value="">Selecione...</option>
                     {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -262,7 +262,7 @@ function ConfrontosContent() {
                   type="datetime-local"
                   value={form.scheduled_at}
                   onChange={e => setForm(p => ({ ...p, scheduled_at: e.target.value }))}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-red-500 transition-colors"
                 />
               </div>
 
@@ -274,7 +274,7 @@ function ConfrontosContent() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg transition-colors text-sm"
+                  className="flex-1 bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg transition-colors text-sm"
                 >
                   {saving ? 'Criando...' : 'Criar confronto'}
                 </button>
@@ -299,7 +299,7 @@ function ConfrontosContent() {
       ) : matchesFiltrados.length === 0 ? (
         <div className="text-center py-16 text-gray-500 text-sm">
           {isAdmin
-            ? <><p>Nenhum confronto criado.</p><button onClick={() => setCriando(true)} className="text-indigo-400 hover:text-indigo-300 mt-2 inline-block">Criar o primeiro confronto</button></>
+            ? <><p>Nenhum confronto criado.</p><button onClick={() => setCriando(true)} className="text-red-400 hover:text-red-300 mt-2 inline-block">Criar o primeiro confronto</button></>
             : <p>Nenhum confronto criado ainda.</p>
           }
         </div>
@@ -308,7 +308,7 @@ function ConfrontosContent() {
           {matchesFiltrados.map(match => (
             <div key={match.id}>
               {modalidadeAtiva === 'todas' && modalidadeMap[match.modalidade_id] && (
-                <p className="text-indigo-400 text-xs font-medium mb-1.5 ml-1">
+                <p className="text-red-400 text-xs font-medium mb-1.5 ml-1">
                   {modalidadeMap[match.modalidade_id].name}
                 </p>
               )}
@@ -328,7 +328,7 @@ function ConfrontosContent() {
 
 export default function ConfrontosPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" /></div>}>
+    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-red-500 border-t-transparent rounded-full animate-spin" /></div>}>
       <ConfrontosContent />
     </Suspense>
   )

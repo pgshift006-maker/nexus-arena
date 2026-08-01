@@ -134,7 +134,7 @@ export default function CommentSection({ postId, onCountChange }) {
       {/* Input */}
       <form onSubmit={handleSubmit} className="flex gap-2 items-end">
         <Avatar name={profile?.name} url={profile?.avatar_url} size={28} />
-        <div className="flex-1 flex items-end gap-2 bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 focus-within:border-indigo-500 transition-colors">
+        <div className="flex-1 flex items-end gap-2 bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 focus-within:border-red-500 transition-colors">
           <textarea
             value={text}
             onChange={e => setText(e.target.value)}
@@ -147,7 +147,7 @@ export default function CommentSection({ postId, onCountChange }) {
           <button
             type="submit"
             disabled={!text.trim() || sending}
-            className="text-indigo-400 hover:text-indigo-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0 pb-px"
+            className="text-red-400 hover:text-red-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0 pb-px"
           >
             <Send size={15} />
           </button>

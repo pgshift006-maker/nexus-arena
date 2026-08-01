@@ -60,7 +60,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
   }
 
   return (
-    <div className={`bg-gray-900 border rounded-2xl p-5 transition-colors ${isMine ? 'border-indigo-600' : 'border-gray-800'}`}>
+    <div className={`bg-gray-900 border rounded-2xl p-5 transition-colors ${isMine ? 'border-red-600' : 'border-gray-800'}`}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div
@@ -73,7 +73,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
             <div className="flex items-center gap-2">
               <h3 className="text-white font-semibold">{equipe.name}</h3>
               {isMine && (
-                <span className="text-xs bg-indigo-950 text-indigo-400 border border-indigo-800 px-2 py-0.5 rounded-full">
+                <span className="text-xs bg-red-950 text-red-400 border border-red-800 px-2 py-0.5 rounded-full">
                   Minha equipe
                 </span>
               )}
@@ -106,7 +106,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
           {isAdmin && !adding && (
             <button
               onClick={() => setAdding(true)}
-              className="flex items-center gap-1.5 border border-dashed border-gray-700 hover:border-indigo-700 text-gray-400 hover:text-indigo-300 rounded-full px-2.5 py-1 text-xs transition-colors"
+              className="flex items-center gap-1.5 border border-dashed border-gray-700 hover:border-red-700 text-gray-400 hover:text-red-300 rounded-full px-2.5 py-1 text-xs transition-colors"
             >
               <UserPlus size={13} />
               Adicionar jogador
@@ -152,7 +152,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
                   >
                     <Avatar name={p.name} url={p.avatar_url} size={24} />
                     <span className="text-gray-200 text-sm flex-1">{p.name}</span>
-                    <UserPlus size={14} className="text-indigo-400" />
+                    <UserPlus size={14} className="text-red-400" />
                   </button>
                 ))
               )}

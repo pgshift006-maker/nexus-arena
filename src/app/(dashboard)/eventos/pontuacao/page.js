@@ -112,7 +112,7 @@ function PontuacaoContent() {
       ) : tabela.length === 0 ? (
         <div className="text-center py-16 text-gray-500 text-sm">
           <p>Nenhuma equipe criada ainda.</p>
-          <Link href={`/eventos/equipes?id=${eventoId}`} className="text-indigo-400 hover:text-indigo-300 mt-2 inline-block">
+          <Link href={`/eventos/equipes?id=${eventoId}`} className="text-red-400 hover:text-red-300 mt-2 inline-block">
             Criar equipes
           </Link>
         </div>
@@ -142,7 +142,7 @@ function PontuacaoContent() {
                 <div
                   key={row.team.id}
                   className={`grid grid-cols-[auto_1fr_repeat(7,auto)] items-center gap-x-4 px-4 py-3 border-b border-gray-800 last:border-0 transition-colors ${
-                    isMe ? 'bg-indigo-950/40' : 'hover:bg-gray-800/50'
+                    isMe ? 'bg-red-950/40' : 'hover:bg-gray-800/50'
                   }`}
                 >
                   {/* Posição */}
@@ -154,11 +154,11 @@ function PontuacaoContent() {
                       className="w-3 h-3 rounded-full shrink-0"
                       style={{ backgroundColor: row.team.color }}
                     />
-                    <span className={`text-sm truncate ${isMe ? 'text-indigo-300 font-semibold' : 'text-white'}`}>
+                    <span className={`text-sm truncate ${isMe ? 'text-red-300 font-semibold' : 'text-white'}`}>
                       {row.team.name}
                     </span>
                     {isMe && (
-                      <span className="text-xs text-indigo-500 shrink-0">(você)</span>
+                      <span className="text-xs text-red-500 shrink-0">(você)</span>
                     )}
                   </div>
 
@@ -191,7 +191,7 @@ function PontuacaoContent() {
 
 export default function PontuacaoPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" /></div>}>
+    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-red-500 border-t-transparent rounded-full animate-spin" /></div>}>
       <PontuacaoContent />
     </Suspense>
   )

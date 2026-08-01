@@ -17,7 +17,7 @@ export default function ConfiguracoesPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-red-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -81,7 +81,7 @@ export default function ConfiguracoesPage() {
             value={password}
             onChange={e => setPassword(e.target.value)}
             placeholder="Mínimo 6 caracteres"
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
           />
         </div>
 
@@ -91,7 +91,7 @@ export default function ConfiguracoesPage() {
             type="password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
           />
         </div>
 
@@ -108,7 +108,7 @@ export default function ConfiguracoesPage() {
         <button
           type="submit"
           disabled={saving || !password}
-          className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm"
+          className="bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm"
         >
           {saving ? 'Salvando...' : 'Salvar nova senha'}
         </button>

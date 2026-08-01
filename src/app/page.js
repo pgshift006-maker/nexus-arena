@@ -29,7 +29,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-gray-950">
       <nav className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Trophy className="text-indigo-500" size={24} />
+          <Trophy className="text-red-500" size={24} />
           <span className="text-xl font-bold text-white">Nexus Arena</span>
         </div>
         <div className="flex items-center gap-3">
@@ -38,7 +38,7 @@ export default function LandingPage() {
           </Link>
           <Link
             href="/register"
-            className="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+            className="bg-red-600 hover:bg-red-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
             Começar grátis
           </Link>
@@ -46,13 +46,13 @@ export default function LandingPage() {
       </nav>
 
       <section className="px-6 py-24 text-center max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 bg-indigo-950 border border-indigo-800 rounded-full px-4 py-1.5 text-sm text-indigo-300 mb-6">
+        <div className="inline-flex items-center gap-2 bg-red-950 border border-red-800 rounded-full px-4 py-1.5 text-sm text-red-300 mb-6">
           <Zap size={14} />
           Competições escolares em tempo real
         </div>
         <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
           Sua escola no centro da{' '}
-          <span className="text-indigo-400">arena</span>
+          <span className="text-red-400">arena</span>
         </h1>
         <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
           Crie gincanas, organize competições e engaje toda a comunidade escolar
@@ -61,7 +61,7 @@ export default function LandingPage() {
         <div className="flex items-center justify-center gap-4 flex-wrap">
           <Link
             href="/register"
-            className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3 rounded-xl transition-colors text-lg"
+            className="bg-red-600 hover:bg-red-500 text-white font-semibold px-8 py-3 rounded-xl transition-colors text-lg"
           >
             Criar conta da escola
           </Link>
@@ -79,10 +79,10 @@ export default function LandingPage() {
           {features.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-indigo-800 transition-colors"
+              className="bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-red-800 transition-colors"
             >
-              <div className="bg-indigo-950 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
-                <Icon className="text-indigo-400" size={20} />
+              <div className="bg-red-950 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
+                <Icon className="text-red-400" size={20} />
               </div>
               <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>

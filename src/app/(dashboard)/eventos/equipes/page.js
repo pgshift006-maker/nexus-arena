@@ -89,7 +89,7 @@ function EquipesContent() {
         {isAdmin && (
           <button
             onClick={() => setCriando(true)}
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm"
+            className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm"
           >
             <Plus size={16} />
             Nova equipe
@@ -99,7 +99,7 @@ function EquipesContent() {
 
       {/* Modal criar equipe */}
       {isAdmin && criando && (
-        <div className="bg-gray-900 border border-indigo-700 rounded-2xl p-5 mb-5">
+        <div className="bg-gray-900 border border-red-700 rounded-2xl p-5 mb-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-white font-semibold">Nova equipe</h2>
             <button onClick={() => setCriando(false)} className="text-gray-500 hover:text-white transition-colors">
@@ -114,7 +114,7 @@ function EquipesContent() {
                 onChange={e => setNovaEquipe(p => ({ ...p, name: e.target.value }))}
                 placeholder="Ex: Turma A, Time Vermelho..."
                 required
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
@@ -139,7 +139,7 @@ function EquipesContent() {
               <button
                 type="submit"
                 disabled={saving}
-                className="flex-1 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-medium py-2 rounded-lg transition-colors text-sm"
+                className="flex-1 bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-medium py-2 rounded-lg transition-colors text-sm"
               >
                 {saving ? 'Criando...' : 'Criar equipe'}
               </button>
@@ -167,7 +167,7 @@ function EquipesContent() {
           {isAdmin && (
             <button
               onClick={() => setCriando(true)}
-              className="text-indigo-400 hover:text-indigo-300 text-sm mt-2 inline-block"
+              className="text-red-400 hover:text-red-300 text-sm mt-2 inline-block"
             >
               Criar a primeira equipe
             </button>
@@ -193,7 +193,7 @@ function EquipesContent() {
 
 export default function EquipesPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" /></div>}>
+    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-red-500 border-t-transparent rounded-full animate-spin" /></div>}>
       <EquipesContent />
     </Suspense>
   )

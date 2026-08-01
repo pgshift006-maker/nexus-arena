@@ -50,7 +50,7 @@ export default function PostCard({ post }) {
           {hashtags?.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mt-2">
               {hashtags.map(({ tag }) => (
-                <span key={tag} className="text-indigo-400 text-xs hover:text-indigo-300 cursor-pointer">
+                <span key={tag} className="text-red-400 text-xs hover:text-red-300 cursor-pointer">
                   #{tag}
                 </span>
               ))}

@@ -20,7 +20,7 @@ export default function Sidebar() {
   return (
     <aside className="hidden md:flex w-60 bg-gray-900 border-r border-gray-800 flex-col py-6 shrink-0">
       <div className="px-5 mb-8 flex items-center gap-2">
-        <Trophy className="text-indigo-500" size={22} />
+        <Trophy className="text-red-500" size={22} />
         <span className="text-white font-bold text-lg">Nexus Arena</span>
       </div>
 
@@ -35,21 +35,21 @@ export default function Sidebar() {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
                 active
-                  ? 'bg-indigo-950 text-indigo-300'
+                  ? 'bg-red-950 text-red-300'
                   : 'text-gray-400 hover:text-white hover:bg-gray-800'
               )}
             >
               <div className="relative">
                 <Icon size={18} />
                 {isBell && unread > 0 && (
-                  <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-indigo-500 rounded-full text-white text-xs flex items-center justify-center font-bold leading-none">
+                  <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 rounded-full text-white text-xs flex items-center justify-center font-bold leading-none">
                     {unread > 9 ? '9' : unread}
                   </span>
                 )}
               </div>
               {label}
               {isBell && unread > 0 && (
-                <span className="ml-auto bg-indigo-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full leading-none">
+                <span className="ml-auto bg-red-600 text-white text-xs font-bold px-1.5 py-0.5 rounded-full leading-none">
                   {unread > 9 ? '9+' : unread}
                 </span>
               )}

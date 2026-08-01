@@ -77,7 +77,7 @@ export default function ConfrontoCard({ match, teamMap, currentUserId, isAdmin }
   const StatusIcon = statusConfig[status]?.icon ?? Clock
 
   return (
-    <div className={`bg-gray-900 border rounded-2xl p-5 transition-colors ${isLive ? 'border-indigo-700' : 'border-gray-800'}`}>
+    <div className={`bg-gray-900 border rounded-2xl p-5 transition-colors ${isLive ? 'border-red-700' : 'border-gray-800'}`}>
 
       {/* cabeçalho status */}
       <div className="flex items-center justify-between mb-4">
@@ -89,7 +89,7 @@ export default function ConfrontoCard({ match, teamMap, currentUserId, isAdmin }
           <button
             onClick={changeStatus}
             disabled={updating}
-            className="text-xs border border-gray-700 hover:border-indigo-600 text-gray-400 hover:text-indigo-300 px-3 py-1 rounded-lg transition-colors disabled:opacity-50"
+            className="text-xs border border-gray-700 hover:border-red-600 text-gray-400 hover:text-red-300 px-3 py-1 rounded-lg transition-colors disabled:opacity-50"
           >
             <PlayCircle size={11} className="inline mr-1" />
             {nextStatusLabel[status]}
@@ -107,7 +107,7 @@ export default function ConfrontoCard({ match, teamMap, currentUserId, isAdmin }
                 <Minus size={13} />
               </button>
               <span className="text-4xl font-bold text-white w-10 text-center">{score_a}</span>
-              <button onClick={() => changeScore('a', 1)} disabled={updating} className="w-7 h-7 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center disabled:opacity-40">
+              <button onClick={() => changeScore('a', 1)} disabled={updating} className="w-7 h-7 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center disabled:opacity-40">
                 <Plus size={13} />
               </button>
             </div>
@@ -126,7 +126,7 @@ export default function ConfrontoCard({ match, teamMap, currentUserId, isAdmin }
                 <Minus size={13} />
               </button>
               <span className="text-4xl font-bold text-white w-10 text-center">{score_b}</span>
-              <button onClick={() => changeScore('b', 1)} disabled={updating} className="w-7 h-7 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center disabled:opacity-40">
+              <button onClick={() => changeScore('b', 1)} disabled={updating} className="w-7 h-7 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center disabled:opacity-40">
                 <Plus size={13} />
               </button>
             </div>
@@ -148,7 +148,7 @@ export default function ConfrontoCard({ match, teamMap, currentUserId, isAdmin }
             )}
           </div>
           <div className="flex rounded-full overflow-hidden h-3">
-            <div className="bg-indigo-500 transition-all duration-500" style={{ width: `${pctA}%` }} />
+            <div className="bg-red-500 transition-all duration-500" style={{ width: `${pctA}%` }} />
             <div className="bg-purple-500 transition-all duration-500" style={{ width: `${pctB}%` }} />
           </div>
           <div className="flex justify-between text-xs text-gray-400 mt-1.5">
@@ -159,7 +159,7 @@ export default function ConfrontoCard({ match, teamMap, currentUserId, isAdmin }
           {poll.is_open && !myVote && !isAdmin && (
             <div className="flex gap-3 mt-3">
               <button onClick={() => handleVote(team_a_id)} disabled={voting}
-                className="flex-1 border border-indigo-700 hover:bg-indigo-950 disabled:opacity-50 text-indigo-300 text-sm font-medium py-2 rounded-lg transition-colors">
+                className="flex-1 border border-red-700 hover:bg-red-950 disabled:opacity-50 text-red-300 text-sm font-medium py-2 rounded-lg transition-colors">
                 {teamA.name}
               </button>
               <button onClick={() => handleVote(team_b_id)} disabled={voting}
@@ -170,7 +170,7 @@ export default function ConfrontoCard({ match, teamMap, currentUserId, isAdmin }
           )}
           {myVote && (
             <p className="text-center text-xs text-gray-500 mt-3">
-              Você votou em <span className="text-indigo-400">{teamMap[myVote.team_id]?.name ?? 'sua equipe'}</span>
+              Você votou em <span className="text-red-400">{teamMap[myVote.team_id]?.name ?? 'sua equipe'}</span>
             </p>
           )}
           {!poll.is_open && (
@@ -181,7 +181,7 @@ export default function ConfrontoCard({ match, teamMap, currentUserId, isAdmin }
         <button
           onClick={createPoll}
           disabled={creatingPoll}
-          className="w-full mt-4 flex items-center justify-center gap-2 border border-dashed border-gray-700 hover:border-indigo-600 text-gray-500 hover:text-indigo-400 text-sm py-2.5 rounded-xl transition-colors disabled:opacity-50"
+          className="w-full mt-4 flex items-center justify-center gap-2 border border-dashed border-gray-700 hover:border-red-600 text-gray-500 hover:text-red-400 text-sm py-2.5 rounded-xl transition-colors disabled:opacity-50"
         >
           <BarChart3 size={15} />
           {creatingPoll ? 'Criando...' : 'Criar enquete ao vivo'}

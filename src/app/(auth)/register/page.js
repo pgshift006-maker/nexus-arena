@@ -44,7 +44,7 @@ export default function RegisterPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Trophy className="text-indigo-500" size={28} />
+            <Trophy className="text-red-500" size={28} />
             <span className="text-2xl font-bold text-white">Nexus Arena</span>
           </div>
           <h1 className="text-white text-xl font-semibold">Criar sua conta</h1>
@@ -62,7 +62,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="Seu nome"
                 required
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
@@ -74,7 +74,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="seu@email.com"
                 required
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
@@ -87,7 +87,7 @@ export default function RegisterPage() {
                 placeholder="Mínimo 6 caracteres"
                 required
                 minLength={6}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
@@ -96,7 +96,7 @@ export default function RegisterPage() {
                 name="role"
                 value={form.role}
                 onChange={handleChange}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-red-500 transition-colors"
               >
                 <option value="aluno">Aluno</option>
                 <option value="professor">Professor</option>
@@ -113,7 +113,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-2.5 rounded-lg transition-colors mt-2"
+              className="w-full bg-red-600 hover:bg-red-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-2.5 rounded-lg transition-colors mt-2"
             >
               {loading ? 'Criando conta...' : 'Criar conta'}
             </button>
@@ -121,7 +121,7 @@ export default function RegisterPage() {
 
           <p className="text-center text-gray-400 text-sm mt-6">
             Já tem conta?{' '}
-            <Link href="/login" className="text-indigo-400 hover:text-indigo-300 font-medium">
+            <Link href="/login" className="text-red-400 hover:text-red-300 font-medium">
               Entrar
             </Link>
           </p>

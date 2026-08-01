@@ -87,36 +87,36 @@ function EventoDetalheContent() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
           href={`/eventos/equipes?id=${id}`}
-          className="bg-gray-900 border border-gray-800 hover:border-indigo-700 rounded-2xl p-6 transition-colors group"
+          className="bg-gray-900 border border-gray-800 hover:border-red-700 rounded-2xl p-6 transition-colors group"
         >
-          <Users className="text-indigo-400 mb-3" size={24} />
+          <Users className="text-red-400 mb-3" size={24} />
           <h2 className="text-white font-semibold text-lg">Equipes</h2>
           <p className="text-gray-400 text-sm mt-1">Entre em uma equipe e escolha sua torcida</p>
         </Link>
 
         <Link
           href={`/eventos/confrontos?id=${id}`}
-          className="bg-gray-900 border border-gray-800 hover:border-indigo-700 rounded-2xl p-6 transition-colors group"
+          className="bg-gray-900 border border-gray-800 hover:border-red-700 rounded-2xl p-6 transition-colors group"
         >
-          <Trophy className="text-indigo-400 mb-3" size={24} />
+          <Trophy className="text-red-400 mb-3" size={24} />
           <h2 className="text-white font-semibold text-lg">Confrontos</h2>
           <p className="text-gray-400 text-sm mt-1">Acompanhe placares e enquetes ao vivo</p>
         </Link>
 
         <Link
           href={`/eventos/pontuacao?id=${id}`}
-          className="bg-gray-900 border border-gray-800 hover:border-indigo-700 rounded-2xl p-6 transition-colors group"
+          className="bg-gray-900 border border-gray-800 hover:border-red-700 rounded-2xl p-6 transition-colors group"
         >
-          <BarChart3 className="text-indigo-400 mb-3" size={24} />
+          <BarChart3 className="text-red-400 mb-3" size={24} />
           <h2 className="text-white font-semibold text-lg">Classificação</h2>
           <p className="text-gray-400 text-sm mt-1">Tabela de pontos e ranking das equipes</p>
         </Link>
 
         <Link
           href={`/eventos/comunidade?id=${id}`}
-          className="bg-gray-900 border border-gray-800 hover:border-indigo-700 rounded-2xl p-6 transition-colors group"
+          className="bg-gray-900 border border-gray-800 hover:border-red-700 rounded-2xl p-6 transition-colors group"
         >
-          <Zap className="text-indigo-400 mb-3" size={24} />
+          <Zap className="text-red-400 mb-3" size={24} />
           <h2 className="text-white font-semibold text-lg">Comunidade</h2>
           <p className="text-gray-400 text-sm mt-1">Posts, torcida e interação do evento</p>
         </Link>
@@ -127,7 +127,7 @@ function EventoDetalheContent() {
 
 export default function EventoDetalhePage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" /></div>}>
+    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-red-500 border-t-transparent rounded-full animate-spin" /></div>}>
       <EventoDetalheContent />
     </Suspense>
   )

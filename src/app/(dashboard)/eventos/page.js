@@ -34,7 +34,7 @@ export default function EventosPage() {
         </div>
         <Link
           href="/eventos/novo"
-          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm"
+          className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm"
         >
           <Plus size={16} />
           Novo evento
@@ -50,7 +50,7 @@ export default function EventosPage() {
       ) : eventos.length === 0 ? (
         <div className="text-center py-16 text-gray-500">
           <p className="text-sm">Nenhum evento criado ainda.</p>
-          <Link href="/eventos/novo" className="text-indigo-400 hover:text-indigo-300 text-sm mt-2 inline-block">
+          <Link href="/eventos/novo" className="text-red-400 hover:text-red-300 text-sm mt-2 inline-block">
             Criar o primeiro evento
           </Link>
         </div>

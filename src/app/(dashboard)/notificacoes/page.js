@@ -8,7 +8,7 @@ import { timeAgo } from '@/lib/utils'
 const typeIcon = {
   like:       { icon: Heart,   color: 'text-red-400',    bg: 'bg-red-950'    },
   ao_vivo:    { icon: Zap,     color: 'text-green-400',  bg: 'bg-green-950'  },
-  encerrado:  { icon: Trophy,  color: 'text-indigo-400', bg: 'bg-indigo-950' },
+  encerrado:  { icon: Trophy,  color: 'text-red-400', bg: 'bg-red-950' },
   new_match:  { icon: Trophy,  color: 'text-yellow-400', bg: 'bg-yellow-950' },
 }
 
@@ -35,7 +35,7 @@ export default function NotificacoesPage() {
         {unread > 0 && (
           <button
             onClick={markAllRead}
-            className="flex items-center gap-2 text-sm text-indigo-400 hover:text-indigo-300 border border-indigo-800 hover:bg-indigo-950 px-4 py-2 rounded-lg transition-colors"
+            className="flex items-center gap-2 text-sm text-red-400 hover:text-red-300 border border-red-800 hover:bg-red-950 px-4 py-2 rounded-lg transition-colors"
           >
             <Check size={15} />
             Marcar todas como lidas
@@ -57,7 +57,7 @@ export default function NotificacoesPage() {
               <button
                 key={n.id}
                 onClick={() => handleClick(n)}
-                className={`w-full text-left flex items-start gap-4 px-5 py-4 border-b border-gray-800 last:border-0 hover:bg-gray-800 transition-colors ${!n.read ? 'bg-indigo-950/20' : ''}`}
+                className={`w-full text-left flex items-start gap-4 px-5 py-4 border-b border-gray-800 last:border-0 hover:bg-gray-800 transition-colors ${!n.read ? 'bg-red-950/20' : ''}`}
               >
                 {/* ícone */}
                 <div className={`${bg} w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5`}>
@@ -70,7 +70,7 @@ export default function NotificacoesPage() {
                     <p className={`text-sm leading-snug ${!n.read ? 'text-white font-medium' : 'text-gray-300'}`}>
                       {n.title}
                     </p>
-                    {!n.read && <div className="w-2 h-2 bg-indigo-400 rounded-full shrink-0 mt-1" />}
+                    {!n.read && <div className="w-2 h-2 bg-red-400 rounded-full shrink-0 mt-1" />}
                   </div>
                   {n.body && <p className="text-xs text-gray-400 mt-0.5">{n.body}</p>}
                   <p className="text-xs text-gray-600 mt-1">{timeAgo(n.created_at)}</p>

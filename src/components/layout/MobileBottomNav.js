@@ -40,13 +40,13 @@ export default function MobileBottomNav() {
                 name={profile?.name}
                 url={profile?.avatar_url}
                 size={26}
-                className={active ? 'ring-2 ring-indigo-500' : ''}
+                className={active ? 'ring-2 ring-red-500' : ''}
               />
             ) : (
               <Icon size={22} strokeWidth={active ? 2.2 : 1.8} />
             )}
             {isBell && unread > 0 && (
-              <span className="absolute top-1 right-1.5 min-w-[15px] h-[15px] px-0.5 bg-indigo-500 rounded-full text-white text-[9px] flex items-center justify-center font-bold leading-none">
+              <span className="absolute top-1 right-1.5 min-w-[15px] h-[15px] px-0.5 bg-red-500 rounded-full text-white text-[9px] flex items-center justify-center font-bold leading-none">
                 {unread > 9 ? '9+' : unread}
               </span>
             )}

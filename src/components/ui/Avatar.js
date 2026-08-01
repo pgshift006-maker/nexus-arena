@@ -18,7 +18,7 @@ export default function Avatar({ name, url, size = 36, className = '' }) {
   return (
     <div
       style={{ width: px, height: px, fontSize: `${Math.round(size * 0.38)}px` }}
-      className={`rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold shrink-0 ${className}`}
+      className={`rounded-full bg-red-600 flex items-center justify-center text-white font-bold shrink-0 ${className}`}
     >
       {getInitials(name)}
     </div>
