@@ -5,6 +5,7 @@ import { Heart, MessageCircle } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 import { timeAgo, getInitials } from '@/lib/utils'
+import CommentSection from './CommentSection'
 
 export default function PostCard({ post }) {
   const { user } = useAuth()
@@ -14,6 +15,8 @@ export default function PostCard({ post }) {
   const [liked, setLiked] = useState(alreadyLiked)
   const [count, setCount] = useState(likes_count ?? 0)
   const [toggling, setToggling] = useState(false)
+  const [showComments, setShowComments] = useState(false)
+  const [commentsCount, setCommentsCount] = useState(post.comments_count ?? 0)
 
   async function handleLike() {
     if (!user || toggling) return
@@ -68,11 +71,22 @@ export default function PostCard({ post }) {
           <Heart size={15} fill={liked ? 'currentColor' : 'none'} />
           {count}
         </button>
-        <button className="flex items-center gap-1.5 text-gray-500 hover:text-blue-400 transition-colors text-xs">
+        <button
+          onClick={() => setShowComments(s => !s)}
+          className={`flex items-center gap-1.5 transition-colors text-xs ${
+            showComments ? 'text-blue-400' : 'text-gray-500 hover:text-blue-400'
+          }`}
+        >
           <MessageCircle size={15} />
-          {post.comments_count ?? 0}
+          {commentsCount}
         </button>
       </div>
+
+      {showComments && (
+        <div className="ml-12">
+          <CommentSection postId={post.id} onCountChange={setCommentsCount} />
+        </div>
+      )}
     </div>
   )
 }
