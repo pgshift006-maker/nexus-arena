@@ -2,19 +2,22 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Trophy, Rss, User, Bell } from 'lucide-react'
+import { Trophy, Rss, Bell } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/hooks/useAuth'
 import { useNotifications } from '@/hooks/useNotifications'
+import Avatar from '@/components/ui/Avatar'
 
 const navItems = [
   { href: '/feed',         icon: Rss    },
   { href: '/eventos',      icon: Trophy },
   { href: '/notificacoes', icon: Bell   },
-  { href: '/perfil',       icon: User   },
+  { href: '/perfil',       icon: null   },
 ]
 
 export default function MobileBottomNav() {
   const pathname = usePathname()
+  const { profile } = useAuth()
   const { unread } = useNotifications()
 
   return (
@@ -22,6 +25,7 @@ export default function MobileBottomNav() {
       {navItems.map(({ href, icon: Icon }) => {
         const active = pathname.startsWith(href)
         const isBell = href === '/notificacoes'
+        const isProfile = href === '/perfil'
         return (
           <Link
             key={href}
@@ -31,7 +35,16 @@ export default function MobileBottomNav() {
               active ? 'bg-gray-800 text-white' : 'text-gray-500 hover:text-gray-300'
             )}
           >
-            <Icon size={22} strokeWidth={active ? 2.2 : 1.8} />
+            {isProfile ? (
+              <Avatar
+                name={profile?.name}
+                url={profile?.avatar_url}
+                size={26}
+                className={active ? 'ring-2 ring-indigo-500' : ''}
+              />
+            ) : (
+              <Icon size={22} strokeWidth={active ? 2.2 : 1.8} />
+            )}
             {isBell && unread > 0 && (
               <span className="absolute top-1 right-1.5 min-w-[15px] h-[15px] px-0.5 bg-indigo-500 rounded-full text-white text-[9px] flex items-center justify-center font-bold leading-none">
                 {unread > 9 ? '9+' : unread}

@@ -5,13 +5,10 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Bell, LogOut, Check, Trophy } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import { useAuth } from '@/hooks/useAuth'
 import { useNotifications } from '@/hooks/useNotifications'
 import { timeAgo } from '@/lib/utils'
-import Avatar from '@/components/ui/Avatar'
 
 export default function Navbar() {
-  const { profile } = useAuth()
   const router = useRouter()
   const { notifications, unread, markAllRead, markRead } = useNotifications()
   const [open, setOpen] = useState(false)
@@ -109,12 +106,6 @@ export default function Navbar() {
               </div>
             </div>
           )}
-        </div>
-
-        {/* Avatar + nome */}
-        <div className="flex items-center gap-2 ml-1">
-          <Avatar name={profile?.name} url={profile?.avatar_url} size={32} />
-          <span className="text-sm text-gray-300 hidden sm:block">{profile?.name ?? '...'}</span>
         </div>
 
         <button
