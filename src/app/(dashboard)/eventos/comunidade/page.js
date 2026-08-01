@@ -12,7 +12,7 @@ function ComunidadeContent() {
   const id = searchParams.get('id')
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="max-w-[470px] mx-auto px-4 py-4 sm:py-6">
       <Link href={`/eventos/detalhe?id=${id}`} className="flex items-center gap-2 text-gray-400 hover:text-white text-sm mb-6 transition-colors">
         <ArrowLeft size={16} />
         Voltar ao evento

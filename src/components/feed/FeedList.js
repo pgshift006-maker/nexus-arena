@@ -51,9 +51,9 @@ export default function FeedList({ eventoId = null }) {
 
   if (loading) {
     return (
-      <div className="space-y-3">
+      <div className="sm:space-y-3">
         {[1, 2, 3].map(i => (
-          <div key={i} className="bg-gray-900 border border-gray-800 rounded-2xl p-4 animate-pulse">
+          <div key={i} className="bg-gray-900 border-b border-gray-800 sm:border sm:rounded-2xl p-4 animate-pulse">
             <div className="flex gap-3">
               <div className="w-9 h-9 rounded-full bg-gray-800" />
               <div className="flex-1 space-y-2">

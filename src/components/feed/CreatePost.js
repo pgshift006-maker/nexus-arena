@@ -42,7 +42,7 @@ export default function CreatePost({ eventoId = null }) {
   }
 
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-4">
+    <div className="bg-gray-900 border-b border-gray-800 sm:border sm:rounded-2xl p-4 mb-4">
       <div className="flex gap-3">
         <div className="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
           {getInitials(profile?.name ?? '?')}

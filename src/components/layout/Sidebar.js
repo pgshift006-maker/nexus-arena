@@ -18,7 +18,7 @@ export default function Sidebar() {
   const { unread } = useNotifications()
 
   return (
-    <aside className="w-60 bg-gray-900 border-r border-gray-800 flex flex-col py-6 shrink-0">
+    <aside className="hidden md:flex w-60 bg-gray-900 border-r border-gray-800 flex-col py-6 shrink-0">
       <div className="px-5 mb-8 flex items-center gap-2">
         <Trophy className="text-indigo-500" size={22} />
         <span className="text-white font-bold text-lg">Nexus Arena</span>

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Bell, LogOut, Check } from 'lucide-react'
+import { Bell, LogOut, Check, Trophy } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 import { useNotifications } from '@/hooks/useNotifications'
@@ -37,8 +37,11 @@ export default function Navbar() {
   }
 
   return (
-    <header className="h-14 border-b border-gray-800 bg-gray-900 flex items-center justify-between px-6 shrink-0">
-      <div />
+    <header className="h-14 border-b border-gray-800 bg-gray-900 flex items-center justify-between px-4 sm:px-6 shrink-0">
+      <div className="flex items-center gap-2 md:hidden">
+        <Trophy className="text-indigo-500" size={18} />
+        <span className="text-white font-bold text-sm">Nexus Arena</span>
+      </div>
 
       <div className="flex items-center gap-2">
         {/* Sino de notificações */}

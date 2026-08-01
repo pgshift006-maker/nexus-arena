@@ -37,7 +37,7 @@ export default function PostCard({ post }) {
   }
 
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 mb-3">
+    <div className="bg-gray-900 border-b border-gray-800 sm:border sm:rounded-2xl p-4 sm:mb-3">
       <div className="flex gap-3">
         <div className="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
           {getInitials(author?.name)}
@@ -60,32 +60,42 @@ export default function PostCard({ post }) {
         </div>
       </div>
 
-      <div className="flex gap-4 mt-3 pt-3 border-t border-gray-800 ml-12">
+      {/* Ações estilo Instagram: ícones sem texto */}
+      <div className="flex items-center gap-5 mt-3">
         <button
           onClick={handleLike}
           disabled={!user || toggling}
-          className={`flex items-center gap-1.5 transition-colors text-xs ${
-            liked ? 'text-red-400' : 'text-gray-500 hover:text-red-400'
-          }`}
+          className={`transition-colors ${liked ? 'text-red-500' : 'text-gray-300 hover:text-red-400'}`}
+          aria-label="Curtir"
         >
-          <Heart size={15} fill={liked ? 'currentColor' : 'none'} />
-          {count}
+          <Heart size={24} strokeWidth={1.8} fill={liked ? 'currentColor' : 'none'} />
         </button>
         <button
           onClick={() => setShowComments(s => !s)}
-          className={`flex items-center gap-1.5 transition-colors text-xs ${
-            showComments ? 'text-blue-400' : 'text-gray-500 hover:text-blue-400'
-          }`}
+          className={`transition-colors ${showComments ? 'text-blue-400' : 'text-gray-300 hover:text-blue-400'}`}
+          aria-label="Comentar"
         >
-          <MessageCircle size={15} />
-          {commentsCount}
+          <MessageCircle size={24} strokeWidth={1.8} />
         </button>
       </div>
 
+      {count > 0 && (
+        <p className="text-white text-sm font-semibold mt-2">
+          {count} {count === 1 ? 'curtida' : 'curtidas'}
+        </p>
+      )}
+
+      {commentsCount > 0 && (
+        <button
+          onClick={() => setShowComments(s => !s)}
+          className="text-gray-500 hover:text-gray-300 text-sm mt-1 transition-colors"
+        >
+          Ver {commentsCount === 1 ? 'o comentário' : `os ${commentsCount} comentários`}
+        </button>
+      )}
+
       {showComments && (
-        <div className="ml-12">
-          <CommentSection postId={post.id} onCountChange={setCommentsCount} />
-        </div>
+        <CommentSection postId={post.id} onCountChange={setCommentsCount} />
       )}
     </div>
   )
