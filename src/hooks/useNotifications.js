@@ -9,33 +9,35 @@ export function useNotifications() {
   const [notifications, setNotifications] = useState([])
   const [unread, setUnread] = useState(0)
 
+  const userId = user?.id
+
   const load = useCallback(async () => {
-    if (!user) return
+    if (!userId) return
     const supabase = createClient()
     const { data } = await supabase
       .from('notifications')
       .select('*')
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .order('created_at', { ascending: false })
       .limit(30)
     setNotifications(data ?? [])
     setUnread((data ?? []).filter(n => !n.read).length)
-  }, [user])
+  }, [userId])
 
   useEffect(() => { load() }, [load])
 
   useEffect(() => {
-    if (!user) return
+    if (!userId) return
     const supabase = createClient()
     const channel = supabase
       .channel('notifications-realtime')
       .on('postgres_changes', {
         event: 'INSERT', schema: 'public', table: 'notifications',
-        filter: `user_id=eq.${user.id}`,
+        filter: `user_id=eq.${userId}`,
       }, () => load())
       .subscribe()
     return () => supabase.removeChannel(channel)
-  }, [user, load])
+  }, [userId, load])
 
   async function markAllRead() {
     if (!user) return
