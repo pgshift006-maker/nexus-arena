@@ -54,10 +54,13 @@ export default function NotificacoesPage() {
           {notifications.map((n, i) => {
             const { icon: Icon, color, bg } = cfg(n.type)
             return (
-              <button
+              <div
                 key={n.id}
+                role="button"
+                tabIndex={0}
                 onClick={() => handleClick(n)}
-                className={`w-full text-left flex items-start gap-4 px-5 py-4 border-b border-gray-200 dark:border-gray-800 last:border-0 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${!n.read ? 'bg-red-50/20 dark:bg-red-950/20' : ''}`}
+                onKeyDown={e => { if (e.key === 'Enter') handleClick(n) }}
+                className={`w-full text-left flex items-start gap-4 px-5 py-4 border-b border-gray-200 dark:border-gray-800 last:border-0 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer ${!n.read ? 'bg-red-50/20 dark:bg-red-950/20' : ''}`}
               >
                 {/* ícone */}
                 <div className={`${bg} w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5`}>
@@ -70,12 +73,21 @@ export default function NotificacoesPage() {
                     <p className={`text-sm leading-snug ${!n.read ? 'text-gray-900 dark:text-white font-medium' : 'text-gray-700 dark:text-gray-300'}`}>
                       {n.title}
                     </p>
-                    {!n.read && <div className="w-2 h-2 bg-red-400 rounded-full shrink-0 mt-1" />}
+                    {!n.read && (
+                      <button
+                        onClick={e => { e.stopPropagation(); markRead(n.id) }}
+                        title="Marcar como lida"
+                        className="group shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center hover:bg-red-100 dark:hover:bg-red-900 transition-colors"
+                      >
+                        <span className="w-2 h-2 bg-red-400 rounded-full group-hover:hidden" />
+                        <Check size={12} className="hidden group-hover:block text-red-600 dark:text-red-400" />
+                      </button>
+                    )}
                   </div>
                   {n.body && <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">{n.body}</p>}
                   <p className="text-xs text-gray-400 dark:text-gray-600 mt-1">{timeAgo(n.created_at)}</p>
                 </div>
-              </button>
+              </div>
             )
           })}
         </div>
