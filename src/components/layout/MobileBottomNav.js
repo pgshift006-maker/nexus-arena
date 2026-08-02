@@ -2,17 +2,18 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Trophy, Rss, Bell } from 'lucide-react'
+import { Trophy, Rss, Bell, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
 import { useNotifications } from '@/hooks/useNotifications'
 import Avatar from '@/components/ui/Avatar'
 
 const navItems = [
-  { href: '/feed',         icon: Rss    },
-  { href: '/eventos',      icon: Trophy },
-  { href: '/notificacoes', icon: Bell   },
-  { href: '/perfil',       icon: null   },
+  { href: '/feed',          icon: Rss      },
+  { href: '/eventos',       icon: Trophy   },
+  { href: '/notificacoes',  icon: Bell     },
+  { href: '/perfil',        icon: null     },
+  { href: '/configuracoes', icon: Settings },
 ]
 
 export default function MobileBottomNav() {
