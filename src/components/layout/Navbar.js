@@ -35,7 +35,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="h-14 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 flex items-center justify-between px-4 sm:px-6 shrink-0">
+    <header className="h-14 border-b border-white/40 dark:border-white/10 bg-white/60 dark:bg-gray-900/60 backdrop-blur-xl backdrop-saturate-150 flex items-center justify-between px-4 sm:px-6 shrink-0">
       <div className="flex items-center gap-2 md:hidden">
         <Trophy className="text-red-500" size={18} />
         <span className="text-gray-900 dark:text-white font-bold text-sm">Nexus Arena</span>
