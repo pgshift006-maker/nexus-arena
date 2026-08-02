@@ -70,7 +70,7 @@ export default function CreatePost({ eventoId = null }) {
   }
 
   return (
-    <div className="bg-gray-900 border-b border-gray-800 sm:border sm:rounded-2xl p-4 mb-4">
+    <div className="bg-white border-b border-gray-200 sm:border sm:rounded-2xl p-4 mb-4">
       <div className="flex gap-3">
         <Avatar name={profile?.name} url={profile?.avatar_url} size={36} />
         <div className="flex-1">
@@ -79,7 +79,7 @@ export default function CreatePost({ eventoId = null }) {
             onChange={e => setContent(e.target.value)}
             placeholder={eventoId ? 'Torça pela sua equipe... use #hashtags' : 'O que está acontecendo? use #hashtags'}
             rows={3}
-            className="w-full bg-transparent text-white placeholder-gray-500 text-sm resize-none focus:outline-none"
+            className="w-full bg-transparent text-gray-900 placeholder-gray-500 text-sm resize-none focus:outline-none"
           />
 
           {imagePreview && (
@@ -88,22 +88,22 @@ export default function CreatePost({ eventoId = null }) {
               <img src={imagePreview} alt="Pré-visualização" className="max-h-56 rounded-xl object-cover" />
               <button
                 onClick={clearImage}
-                className="absolute top-1.5 right-1.5 bg-black/70 hover:bg-black text-white rounded-full p-1 transition-colors"
+                className="absolute top-1.5 right-1.5 bg-black/70 hover:bg-black text-gray-900 rounded-full p-1 transition-colors"
               >
                 <X size={14} />
               </button>
             </div>
           )}
 
-          <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-800">
+          <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-200">
             <div className="flex items-center gap-3">
-              <span className="text-xs text-gray-600 flex items-center gap-1">
+              <span className="text-xs text-gray-400 flex items-center gap-1">
                 <Hash size={12} /> use #hashtags no texto
               </span>
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="text-gray-500 hover:text-red-400 transition-colors"
+                className="text-gray-500 hover:text-red-600 transition-colors"
                 title="Adicionar foto"
               >
                 <ImageIcon size={16} />

@@ -36,8 +36,8 @@ function calcularClassificacao(teams, matches) {
 }
 
 const posIcon = (pos) => {
-  if (pos === 1) return <Trophy size={15} className="text-yellow-400" />
-  if (pos === 2) return <Medal  size={15} className="text-gray-300" />
+  if (pos === 1) return <Trophy size={15} className="text-yellow-600" />
+  if (pos === 2) return <Medal  size={15} className="text-gray-700" />
   if (pos === 3) return <Medal  size={15} className="text-amber-600" />
   return <span className="text-gray-500 text-sm font-medium w-4 text-center">{pos}</span>
 }
@@ -89,7 +89,7 @@ function PontuacaoContent() {
     <div className="max-w-3xl mx-auto px-4 py-6">
       <Link
         href={`/eventos/detalhe?id=${eventoId}`}
-        className="flex items-center gap-2 text-gray-400 hover:text-white text-sm mb-6 transition-colors"
+        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm mb-6 transition-colors"
       >
         <ArrowLeft size={16} />
         {evento?.name || 'Voltar ao evento'}
@@ -97,31 +97,31 @@ function PontuacaoContent() {
 
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-white">Classificação</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-gray-900">Classificação</h1>
+          <p className="text-gray-600 text-sm mt-1">
             {jogados} confronto{jogados !== 1 ? 's' : ''} encerrado{jogados !== 1 ? 's' : ''}
-            {aoVivo > 0 && <span className="text-green-400 ml-2">• {aoVivo} ao vivo</span>}
+            {aoVivo > 0 && <span className="text-green-600 ml-2">• {aoVivo} ao vivo</span>}
           </p>
         </div>
       </div>
 
       {loading ? (
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-4 animate-pulse space-y-3">
-          {[1,2,3].map(i => <div key={i} className="h-12 bg-gray-800 rounded-xl" />)}
+        <div className="bg-white border border-gray-200 rounded-2xl p-4 animate-pulse space-y-3">
+          {[1,2,3].map(i => <div key={i} className="h-12 bg-gray-100 rounded-xl" />)}
         </div>
       ) : tabela.length === 0 ? (
         <div className="text-center py-16 text-gray-500 text-sm">
           <p>Nenhuma equipe criada ainda.</p>
-          <Link href={`/eventos/equipes?id=${eventoId}`} className="text-red-400 hover:text-red-300 mt-2 inline-block">
+          <Link href={`/eventos/equipes?id=${eventoId}`} className="text-red-600 hover:text-red-700 mt-2 inline-block">
             Criar equipes
           </Link>
         </div>
       ) : (
         <>
           {/* Tabela */}
-          <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden mb-6">
+          <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden mb-6">
             {/* Header */}
-            <div className="grid grid-cols-[auto_1fr_repeat(7,auto)] items-center gap-x-4 px-4 py-2.5 border-b border-gray-800 text-xs text-gray-500 font-medium">
+            <div className="grid grid-cols-[auto_1fr_repeat(7,auto)] items-center gap-x-4 px-4 py-2.5 border-b border-gray-200 text-xs text-gray-500 font-medium">
               <span className="w-6 text-center">#</span>
               <span>Equipe</span>
               <span className="w-6 text-center" title="Jogos">J</span>
@@ -130,7 +130,7 @@ function PontuacaoContent() {
               <span className="w-6 text-center" title="Derrotas">D</span>
               <span className="w-7 text-center" title="Saldo de Gols">SG</span>
               <span className="w-7 text-center" title="Gols Pró">GP</span>
-              <span className="w-8 text-center font-bold text-gray-400" title="Pontos">PTS</span>
+              <span className="w-8 text-center font-bold text-gray-600" title="Pontos">PTS</span>
             </div>
 
             {tabela.map((row, idx) => {
@@ -141,8 +141,8 @@ function PontuacaoContent() {
               return (
                 <div
                   key={row.team.id}
-                  className={`grid grid-cols-[auto_1fr_repeat(7,auto)] items-center gap-x-4 px-4 py-3 border-b border-gray-800 last:border-0 transition-colors ${
-                    isMe ? 'bg-red-950/40' : 'hover:bg-gray-800/50'
+                  className={`grid grid-cols-[auto_1fr_repeat(7,auto)] items-center gap-x-4 px-4 py-3 border-b border-gray-200 last:border-0 transition-colors ${
+                    isMe ? 'bg-red-50/40' : 'hover:bg-gray-100/50'
                   }`}
                 >
                   {/* Posição */}
@@ -154,7 +154,7 @@ function PontuacaoContent() {
                       className="w-3 h-3 rounded-full shrink-0"
                       style={{ backgroundColor: row.team.color }}
                     />
-                    <span className={`text-sm truncate ${isMe ? 'text-red-300 font-semibold' : 'text-white'}`}>
+                    <span className={`text-sm truncate ${isMe ? 'text-red-700 font-semibold' : 'text-gray-900'}`}>
                       {row.team.name}
                     </span>
                     {isMe && (
@@ -163,24 +163,24 @@ function PontuacaoContent() {
                   </div>
 
                   {/* Stats */}
-                  <span className="w-6 text-center text-sm text-gray-400">{row.J}</span>
-                  <span className="w-6 text-center text-sm text-green-400">{row.V}</span>
-                  <span className="w-6 text-center text-sm text-yellow-400">{row.E}</span>
-                  <span className="w-6 text-center text-sm text-red-400">{row.D}</span>
-                  <span className={`w-7 text-center text-sm ${sg > 0 ? 'text-green-400' : sg < 0 ? 'text-red-400' : 'text-gray-400'}`}>
+                  <span className="w-6 text-center text-sm text-gray-600">{row.J}</span>
+                  <span className="w-6 text-center text-sm text-green-600">{row.V}</span>
+                  <span className="w-6 text-center text-sm text-yellow-600">{row.E}</span>
+                  <span className="w-6 text-center text-sm text-red-600">{row.D}</span>
+                  <span className={`w-7 text-center text-sm ${sg > 0 ? 'text-green-600' : sg < 0 ? 'text-red-600' : 'text-gray-600'}`}>
                     {sg > 0 ? `+${sg}` : sg}
                   </span>
-                  <span className="w-7 text-center text-sm text-gray-400">{row.GP}</span>
-                  <span className="w-8 text-center text-sm font-bold text-white">{row.PTS}</span>
+                  <span className="w-7 text-center text-sm text-gray-600">{row.GP}</span>
+                  <span className="w-8 text-center text-sm font-bold text-gray-900">{row.PTS}</span>
                 </div>
               )
             })}
           </div>
 
           {/* Legenda */}
-          <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-gray-600">
+          <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-gray-400">
             {[['J','Jogos'],['V','Vitórias'],['E','Empates'],['D','Derrotas'],['SG','Saldo de gols'],['GP','Gols pró'],['PTS','Pontos']].map(([k, v]) => (
-              <span key={k}><span className="text-gray-400 font-medium">{k}</span> = {v}</span>
+              <span key={k}><span className="text-gray-600 font-medium">{k}</span> = {v}</span>
             ))}
           </div>
         </>

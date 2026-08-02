@@ -50,17 +50,17 @@ export default function ConfiguracoesPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <h1 className="text-2xl font-bold text-white mb-6">Configurações</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">Configurações</h1>
 
       {/* Conta */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-4">
-        <h2 className="text-white font-semibold mb-4">Conta</h2>
+      <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-4">
+        <h2 className="text-gray-900 font-semibold mb-4">Conta</h2>
         <div className="space-y-2 text-sm">
-          <div className="flex items-center gap-2 text-gray-400">
+          <div className="flex items-center gap-2 text-gray-600">
             <Mail size={14} />
             <span>{user?.email}</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-400">
+          <div className="flex items-center gap-2 text-gray-600">
             <Shield size={14} />
             <span>{roleLabel[profile?.role] ?? profile?.role}</span>
           </div>
@@ -68,38 +68,38 @@ export default function ConfiguracoesPage() {
       </div>
 
       {/* Trocar senha */}
-      <form onSubmit={handleChangePassword} className="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-4">
-        <h2 className="text-white font-semibold mb-2 flex items-center gap-2">
+      <form onSubmit={handleChangePassword} className="bg-white border border-gray-200 rounded-2xl p-6 space-y-4">
+        <h2 className="text-gray-900 font-semibold mb-2 flex items-center gap-2">
           <KeyRound size={16} />
           Alterar senha
         </h2>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">Nova senha</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">Nova senha</label>
           <input
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
             placeholder="Mínimo 6 caracteres"
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+            className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">Confirmar nova senha</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">Confirmar nova senha</label>
           <input
             type="password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+            className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
           />
         </div>
 
         {message && (
           <p className={`text-sm rounded-lg px-4 py-2.5 border ${
             message.type === 'error'
-              ? 'text-red-400 bg-red-950 border-red-900'
-              : 'text-emerald-400 bg-emerald-950 border-emerald-900'
+              ? 'text-red-600 bg-red-50 border-red-200'
+              : 'text-emerald-600 bg-emerald-50 border-emerald-200'
           }`}>
             {message.text}
           </p>

@@ -29,8 +29,8 @@ export default function EventosPage() {
     <div className="max-w-4xl mx-auto px-4 py-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-white">Competições</h1>
-          <p className="text-gray-400 text-sm mt-1">Gerencie e acompanhe todos os eventos</p>
+          <h1 className="text-2xl font-bold text-gray-900">Competições</h1>
+          <p className="text-gray-600 text-sm mt-1">Gerencie e acompanhe todos os eventos</p>
         </div>
         <Link
           href="/eventos/novo"
@@ -44,13 +44,13 @@ export default function EventosPage() {
       {loading ? (
         <div className="space-y-3">
           {[1, 2].map(i => (
-            <div key={i} className="bg-gray-900 border border-gray-800 rounded-2xl p-5 animate-pulse h-24" />
+            <div key={i} className="bg-white border border-gray-200 rounded-2xl p-5 animate-pulse h-24" />
           ))}
         </div>
       ) : eventos.length === 0 ? (
         <div className="text-center py-16 text-gray-500">
           <p className="text-sm">Nenhum evento criado ainda.</p>
-          <Link href="/eventos/novo" className="text-red-400 hover:text-red-300 text-sm mt-2 inline-block">
+          <Link href="/eventos/novo" className="text-red-600 hover:text-red-700 text-sm mt-2 inline-block">
             Criar o primeiro evento
           </Link>
         </div>

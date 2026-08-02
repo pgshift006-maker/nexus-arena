@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR" className={`${geistSans.variable} h-full`}>
-      <body className="min-h-full bg-gray-950 text-white antialiased">
+      <body className="min-h-full bg-gray-50 text-gray-900 antialiased">
         {children}
       </body>
     </html>

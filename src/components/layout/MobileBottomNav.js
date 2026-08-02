@@ -21,7 +21,7 @@ export default function MobileBottomNav() {
   const { unread } = useNotifications()
 
   return (
-    <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-gray-900/90 backdrop-blur-md border border-gray-800 rounded-full shadow-lg shadow-black/40 flex items-center gap-1 px-2 py-2">
+    <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-white/90 backdrop-blur-md border border-gray-200 rounded-full shadow-lg shadow-black/40 flex items-center gap-1 px-2 py-2">
       {navItems.map(({ href, icon: Icon }) => {
         const active = pathname.startsWith(href)
         const isBell = href === '/notificacoes'
@@ -32,7 +32,7 @@ export default function MobileBottomNav() {
             href={href}
             className={cn(
               'relative flex items-center justify-center w-11 h-11 rounded-full transition-colors',
-              active ? 'bg-gray-800 text-white' : 'text-gray-500 hover:text-gray-300'
+              active ? 'bg-gray-100 text-gray-900' : 'text-gray-500 hover:text-gray-700'
             )}
           >
             {isProfile ? (

@@ -35,10 +35,10 @@ export default function Navbar() {
   }
 
   return (
-    <header className="h-14 border-b border-gray-800 bg-gray-900 flex items-center justify-between px-4 sm:px-6 shrink-0">
+    <header className="h-14 border-b border-gray-200 bg-white flex items-center justify-between px-4 sm:px-6 shrink-0">
       <div className="flex items-center gap-2 md:hidden">
         <Trophy className="text-red-500" size={18} />
-        <span className="text-white font-bold text-sm">Nexus Arena</span>
+        <span className="text-gray-900 font-bold text-sm">Nexus Arena</span>
       </div>
 
       <div className="flex items-center gap-2">
@@ -46,7 +46,7 @@ export default function Navbar() {
         <div className="relative" ref={ref}>
           <button
             onClick={() => setOpen(o => !o)}
-            className="relative text-gray-400 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-gray-800"
+            className="relative text-gray-600 hover:text-gray-900 transition-colors p-1.5 rounded-lg hover:bg-gray-100"
           >
             <Bell size={18} />
             {unread > 0 && (
@@ -57,14 +57,14 @@ export default function Navbar() {
           </button>
 
           {open && (
-            <div className="absolute right-0 top-10 w-80 bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl shadow-black/40 z-50 overflow-hidden">
+            <div className="absolute right-0 top-10 w-80 bg-white border border-gray-300 rounded-2xl shadow-2xl shadow-black/40 z-50 overflow-hidden">
               {/* header dropdown */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800">
-                <span className="text-white font-semibold text-sm">Notificações</span>
+              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+                <span className="text-gray-900 font-semibold text-sm">Notificações</span>
                 {unread > 0 && (
                   <button
                     onClick={markAllRead}
-                    className="flex items-center gap-1 text-xs text-red-400 hover:text-red-300 transition-colors"
+                    className="flex items-center gap-1 text-xs text-red-600 hover:text-red-700 transition-colors"
                   >
                     <Check size={12} />
                     Marcar todas como lidas
@@ -81,13 +81,13 @@ export default function Navbar() {
                     <button
                       key={n.id}
                       onClick={() => handleNotifClick(n)}
-                      className={`w-full text-left px-4 py-3 border-b border-gray-800 last:border-0 hover:bg-gray-800 transition-colors flex gap-3 ${!n.read ? 'bg-red-950/30' : ''}`}
+                      className={`w-full text-left px-4 py-3 border-b border-gray-200 last:border-0 hover:bg-gray-100 transition-colors flex gap-3 ${!n.read ? 'bg-red-50/30' : ''}`}
                     >
                       <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${!n.read ? 'bg-red-400' : 'bg-transparent'}`} />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-white leading-snug">{n.title}</p>
-                        {n.body && <p className="text-xs text-gray-400 mt-0.5 truncate">{n.body}</p>}
-                        <p className="text-xs text-gray-600 mt-1">{timeAgo(n.created_at)}</p>
+                        <p className="text-sm text-gray-900 leading-snug">{n.title}</p>
+                        {n.body && <p className="text-xs text-gray-600 mt-0.5 truncate">{n.body}</p>}
+                        <p className="text-xs text-gray-400 mt-1">{timeAgo(n.created_at)}</p>
                       </div>
                     </button>
                   ))
@@ -95,11 +95,11 @@ export default function Navbar() {
               </div>
 
               {/* rodapé */}
-              <div className="border-t border-gray-800 px-4 py-2.5">
+              <div className="border-t border-gray-200 px-4 py-2.5">
                 <Link
                   href="/notificacoes"
                   onClick={() => setOpen(false)}
-                  className="text-xs text-red-400 hover:text-red-300 transition-colors"
+                  className="text-xs text-red-600 hover:text-red-700 transition-colors"
                 >
                   Ver todas as notificações →
                 </Link>
@@ -110,7 +110,7 @@ export default function Navbar() {
 
         <button
           onClick={handleLogout}
-          className="text-gray-400 hover:text-red-400 transition-colors p-1.5 rounded-lg hover:bg-gray-800"
+          className="text-gray-600 hover:text-red-600 transition-colors p-1.5 rounded-lg hover:bg-gray-100"
           title="Sair"
         >
           <LogOut size={18} />

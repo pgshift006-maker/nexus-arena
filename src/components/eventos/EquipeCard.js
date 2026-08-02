@@ -60,7 +60,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
   }
 
   return (
-    <div className={`bg-gray-900 border rounded-2xl p-5 transition-colors ${isMine ? 'border-red-600' : 'border-gray-800'}`}>
+    <div className={`bg-white border rounded-2xl p-5 transition-colors ${isMine ? 'border-red-600' : 'border-gray-200'}`}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div
@@ -71,9 +71,9 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-white font-semibold">{equipe.name}</h3>
+              <h3 className="text-gray-900 font-semibold">{equipe.name}</h3>
               {isMine && (
-                <span className="text-xs bg-red-950 text-red-400 border border-red-800 px-2 py-0.5 rounded-full">
+                <span className="text-xs bg-red-50 text-red-600 border border-red-200 px-2 py-0.5 rounded-full">
                   Minha equipe
                 </span>
               )}
@@ -86,7 +86,7 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
           <button
             onClick={handleLeave}
             disabled={loading}
-            className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-red-400 border border-gray-700 hover:border-red-900 px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 text-xs text-gray-600 hover:text-red-600 border border-gray-300 hover:border-red-200 px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50"
           >
             <LogOut size={13} />
             Sair
@@ -97,16 +97,16 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
       {(members.length > 0 || isAdmin) && (
         <div className="flex flex-wrap gap-2 mt-4">
           {members.map(({ profile }) => (
-            <div key={profile.id} className="flex items-center gap-1.5 bg-gray-800 rounded-full px-2.5 py-1">
+            <div key={profile.id} className="flex items-center gap-1.5 bg-gray-100 rounded-full px-2.5 py-1">
               <Avatar name={profile.name} url={profile.avatar_url} size={20} />
-              <span className="text-gray-300 text-xs">{profile.name}</span>
+              <span className="text-gray-700 text-xs">{profile.name}</span>
             </div>
           ))}
 
           {isAdmin && !adding && (
             <button
               onClick={() => setAdding(true)}
-              className="flex items-center gap-1.5 border border-dashed border-gray-700 hover:border-red-700 text-gray-400 hover:text-red-300 rounded-full px-2.5 py-1 text-xs transition-colors"
+              className="flex items-center gap-1.5 border border-dashed border-gray-300 hover:border-red-700 text-gray-600 hover:text-red-700 rounded-full px-2.5 py-1 text-xs transition-colors"
             >
               <UserPlus size={13} />
               Adicionar jogador
@@ -116,21 +116,21 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
       )}
 
       {isAdmin && adding && (
-        <div className="mt-4 bg-gray-800/60 border border-gray-700 rounded-xl p-3">
+        <div className="mt-4 bg-gray-100/60 border border-gray-300 rounded-xl p-3">
           <div className="flex items-center gap-2">
-            <div className="flex-1 flex items-center gap-2 bg-gray-900 border border-gray-700 rounded-lg px-3 py-2">
+            <div className="flex-1 flex items-center gap-2 bg-white border border-gray-300 rounded-lg px-3 py-2">
               <Search size={14} className="text-gray-500" />
               <input
                 autoFocus
                 value={search}
                 onChange={e => handleSearch(e.target.value)}
                 placeholder="Buscar jogador pelo nome..."
-                className="flex-1 bg-transparent text-white text-sm placeholder-gray-500 focus:outline-none"
+                className="flex-1 bg-transparent text-gray-900 text-sm placeholder-gray-500 focus:outline-none"
               />
             </div>
             <button
               onClick={() => { setAdding(false); setSearch(''); setResults([]) }}
-              className="text-gray-500 hover:text-white transition-colors"
+              className="text-gray-500 hover:text-gray-900 transition-colors"
             >
               <X size={16} />
             </button>
@@ -148,11 +148,11 @@ export default function EquipeCard({ equipe, currentUserId, myTeamId, isAdmin, o
                     key={p.id}
                     onClick={() => handleAddPlayer(p.id)}
                     disabled={loading}
-                    className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-gray-800 transition-colors text-left disabled:opacity-50"
+                    className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-gray-100 transition-colors text-left disabled:opacity-50"
                   >
                     <Avatar name={p.name} url={p.avatar_url} size={24} />
                     <span className="text-gray-200 text-sm flex-1">{p.name}</span>
-                    <UserPlus size={14} className="text-red-400" />
+                    <UserPlus size={14} className="text-red-600" />
                   </button>
                 ))
               )}

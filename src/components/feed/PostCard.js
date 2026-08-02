@@ -38,19 +38,19 @@ export default function PostCard({ post }) {
   }
 
   return (
-    <div className="bg-gray-900 border-b border-gray-800 sm:border sm:rounded-2xl p-4 sm:mb-3">
+    <div className="bg-white border-b border-gray-200 sm:border sm:rounded-2xl p-4 sm:mb-3">
       <div className="flex gap-3">
         <Avatar name={author?.name} url={author?.avatar_url} size={36} />
         <div className="flex-1 min-w-0">
           <div className="flex items-baseline gap-2">
-            <span className="text-white font-medium text-sm">{author?.name ?? 'Usuário'}</span>
+            <span className="text-gray-900 font-medium text-sm">{author?.name ?? 'Usuário'}</span>
             <span className="text-gray-500 text-xs">{timeAgo(created_at)}</span>
           </div>
-          <p className="text-gray-300 text-sm mt-1 leading-relaxed whitespace-pre-wrap">{content}</p>
+          <p className="text-gray-700 text-sm mt-1 leading-relaxed whitespace-pre-wrap">{content}</p>
           {hashtags?.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mt-2">
               {hashtags.map(({ tag }) => (
-                <span key={tag} className="text-red-400 text-xs hover:text-red-300 cursor-pointer">
+                <span key={tag} className="text-red-600 text-xs hover:text-red-700 cursor-pointer">
                   #{tag}
                 </span>
               ))}
@@ -73,14 +73,14 @@ export default function PostCard({ post }) {
         <button
           onClick={handleLike}
           disabled={!user || toggling}
-          className={`transition-colors ${liked ? 'text-red-500' : 'text-gray-300 hover:text-red-400'}`}
+          className={`transition-colors ${liked ? 'text-red-500' : 'text-gray-700 hover:text-red-600'}`}
           aria-label="Curtir"
         >
           <Heart size={24} strokeWidth={1.8} fill={liked ? 'currentColor' : 'none'} />
         </button>
         <button
           onClick={() => setShowComments(s => !s)}
-          className={`transition-colors ${showComments ? 'text-blue-400' : 'text-gray-300 hover:text-blue-400'}`}
+          className={`transition-colors ${showComments ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
           aria-label="Comentar"
         >
           <MessageCircle size={24} strokeWidth={1.8} />
@@ -88,7 +88,7 @@ export default function PostCard({ post }) {
       </div>
 
       {count > 0 && (
-        <p className="text-white text-sm font-semibold mt-2">
+        <p className="text-gray-900 text-sm font-semibold mt-2">
           {count} {count === 1 ? 'curtida' : 'curtidas'}
         </p>
       )}
@@ -96,7 +96,7 @@ export default function PostCard({ post }) {
       {commentsCount > 0 && (
         <button
           onClick={() => setShowComments(s => !s)}
-          className="text-gray-500 hover:text-gray-300 text-sm mt-1 transition-colors"
+          className="text-gray-500 hover:text-gray-700 text-sm mt-1 transition-colors"
         >
           Ver {commentsCount === 1 ? 'o comentário' : `os ${commentsCount} comentários`}
         </button>

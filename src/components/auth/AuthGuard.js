@@ -16,7 +16,7 @@ export default function AuthGuard({ children }) {
 
   if (loading || user === null) {
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="w-6 h-6 border-2 border-red-500 border-t-transparent rounded-full animate-spin" />
       </div>
     )
