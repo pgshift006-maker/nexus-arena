@@ -26,14 +26,14 @@ const features = [
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <nav className="border-b border-gray-200 dark:border-gray-800 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Trophy className="text-red-500" size={24} />
-          <span className="text-xl font-bold text-gray-900">Nexus Arena</span>
+          <span className="text-xl font-bold text-gray-900 dark:text-white">Nexus Arena</span>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/login" className="text-gray-600 hover:text-gray-900 transition-colors text-sm">
+          <Link href="/login" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
             Entrar
           </Link>
           <Link
@@ -46,15 +46,15 @@ export default function LandingPage() {
       </nav>
 
       <section className="px-6 py-24 text-center max-w-4xl mx-auto">
-        <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 rounded-full px-4 py-1.5 text-sm text-red-700 mb-6">
+        <div className="inline-flex items-center gap-2 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-full px-4 py-1.5 text-sm text-red-700 dark:text-red-300 mb-6">
           <Zap size={14} />
           Competições escolares em tempo real
         </div>
-        <h1 className="text-5xl font-bold text-gray-900 mb-6 leading-tight">
+        <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
           Sua escola no centro da{' '}
-          <span className="text-red-600">arena</span>
+          <span className="text-red-600 dark:text-red-400">arena</span>
         </h1>
-        <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
           Crie gincanas, organize competições e engaje toda a comunidade escolar
           com feed social, enquetes ao vivo e acompanhamento em tempo real.
         </p>
@@ -67,7 +67,7 @@ export default function LandingPage() {
           </Link>
           <Link
             href="/login"
-            className="border border-gray-300 hover:border-gray-500 text-gray-700 font-semibold px-8 py-3 rounded-xl transition-colors text-lg"
+            className="border border-gray-300 dark:border-gray-700 hover:border-gray-500 text-gray-700 dark:text-gray-300 font-semibold px-8 py-3 rounded-xl transition-colors text-lg"
           >
             Já tenho conta
           </Link>
@@ -79,19 +79,19 @@ export default function LandingPage() {
           {features.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="bg-white border border-gray-200 rounded-2xl p-6 hover:border-red-200 transition-colors"
+              className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 hover:border-red-200 dark:hover:border-red-800 transition-colors"
             >
-              <div className="bg-red-50 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
-                <Icon className="text-red-600" size={20} />
+              <div className="bg-red-50 dark:bg-red-950 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
+                <Icon className="text-red-600 dark:text-red-400" size={20} />
               </div>
-              <h3 className="text-gray-900 font-semibold text-lg mb-2">{title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{desc}</p>
+              <h3 className="text-gray-900 dark:text-white font-semibold text-lg mb-2">{title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <footer className="border-t border-gray-200 px-6 py-8 text-center text-gray-400 text-sm">
+      <footer className="border-t border-gray-200 dark:border-gray-800 px-6 py-8 text-center text-gray-400 dark:text-gray-600 text-sm">
         © 2026 Nexus Arena. Todos os direitos reservados.
       </footer>
     </div>

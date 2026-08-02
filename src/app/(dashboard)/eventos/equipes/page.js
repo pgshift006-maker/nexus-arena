@@ -73,7 +73,7 @@ function EquipesContent() {
     <div className="max-w-3xl mx-auto px-4 py-6">
       <Link
         href={`/eventos/detalhe?id=${eventoId}`}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm mb-6 transition-colors"
+        className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm mb-6 transition-colors"
       >
         <ArrowLeft size={16} />
         {evento?.name || 'Voltar ao evento'}
@@ -81,8 +81,8 @@ function EquipesContent() {
 
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Equipes</h1>
-          <p className="text-gray-600 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Equipes</h1>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
             {isAdmin ? 'Crie equipes e adicione os jogadores' : 'Acompanhe as equipes da competição'}
           </p>
         </div>
@@ -99,26 +99,26 @@ function EquipesContent() {
 
       {/* Modal criar equipe */}
       {isAdmin && criando && (
-        <div className="bg-white border border-red-700 rounded-2xl p-5 mb-5">
+        <div className="bg-white dark:bg-gray-900 border border-red-700 rounded-2xl p-5 mb-5">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-gray-900 font-semibold">Nova equipe</h2>
-            <button onClick={() => setCriando(false)} className="text-gray-500 hover:text-gray-900 transition-colors">
+            <h2 className="text-gray-900 dark:text-white font-semibold">Nova equipe</h2>
+            <button onClick={() => setCriando(false)} className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
               <X size={18} />
             </button>
           </div>
           <form onSubmit={handleCriar} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Nome da equipe</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Nome da equipe</label>
               <input
                 value={novaEquipe.name}
                 onChange={e => setNovaEquipe(p => ({ ...p, name: e.target.value }))}
                 placeholder="Ex: Turma A, Time Vermelho..."
                 required
-                className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+                className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Cor da equipe</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cor da equipe</label>
               <div className="flex gap-2 flex-wrap">
                 {CORES.map(cor => (
                   <button
@@ -146,7 +146,7 @@ function EquipesContent() {
               <button
                 type="button"
                 onClick={() => setCriando(false)}
-                className="px-4 border border-gray-300 text-gray-600 hover:text-gray-900 rounded-lg text-sm transition-colors"
+                className="px-4 border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg text-sm transition-colors"
               >
                 Cancelar
               </button>
@@ -158,7 +158,7 @@ function EquipesContent() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2, 3].map(i => (
-            <div key={i} className="bg-white border border-gray-200 rounded-2xl p-5 animate-pulse h-24" />
+            <div key={i} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 animate-pulse h-24" />
           ))}
         </div>
       ) : equipes.length === 0 ? (
@@ -167,7 +167,7 @@ function EquipesContent() {
           {isAdmin && (
             <button
               onClick={() => setCriando(true)}
-              className="text-red-600 hover:text-red-700 text-sm mt-2 inline-block"
+              className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm mt-2 inline-block"
             >
               Criar a primeira equipe
             </button>

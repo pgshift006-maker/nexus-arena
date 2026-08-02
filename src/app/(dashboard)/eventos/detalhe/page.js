@@ -8,9 +8,9 @@ import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 
 const statusLabel = {
-  ativo: { label: 'Ao vivo', classes: 'bg-green-50 text-green-600 border-green-200' },
-  aguardando: { label: 'Em breve', classes: 'bg-yellow-50 text-yellow-600 border-yellow-200' },
-  encerrado: { label: 'Encerrado', classes: 'bg-gray-100 text-gray-600 border-gray-300' },
+  ativo: { label: 'Ao vivo', classes: 'bg-green-50 dark:bg-green-950 text-green-600 dark:text-green-400 border-green-200 dark:border-green-900' },
+  aguardando: { label: 'Em breve', classes: 'bg-yellow-50 dark:bg-yellow-950 text-yellow-600 dark:text-yellow-400 border-yellow-200 dark:border-yellow-900' },
+  encerrado: { label: 'Encerrado', classes: 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-700' },
 }
 
 function EventoDetalheContent() {
@@ -40,7 +40,7 @@ function EventoDetalheContent() {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 animate-pulse h-40" />
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 animate-pulse h-40" />
       </div>
     )
   }
@@ -49,28 +49,28 @@ function EventoDetalheContent() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6">
-      <Link href="/eventos" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm mb-6 transition-colors">
+      <Link href="/eventos" className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm mb-6 transition-colors">
         <ArrowLeft size={16} />
         Voltar para eventos
       </Link>
 
-      <div className="bg-white border border-gray-200 rounded-2xl p-6 mb-6">
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 mb-6">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <span className={`text-xs border px-2 py-0.5 rounded-full font-medium ${status.classes}`}>
               {status.label}
             </span>
-            <h1 className="text-2xl font-bold text-gray-900 mt-3">{evento.name}</h1>
-            {evento.description && <p className="text-gray-600 mt-1">{evento.description}</p>}
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mt-3">{evento.name}</h1>
+            {evento.description && <p className="text-gray-600 dark:text-gray-400 mt-1">{evento.description}</p>}
           </div>
           {evento.created_by === user?.id && (
-            <button className="text-gray-500 hover:text-gray-900 transition-colors p-2">
+            <button className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors p-2">
               <Settings size={18} />
             </button>
           )}
         </div>
 
-        <div className="flex flex-wrap gap-6 mt-6 text-sm text-gray-600">
+        <div className="flex flex-wrap gap-6 mt-6 text-sm text-gray-600 dark:text-gray-400">
           <div className="flex items-center gap-2">
             <Users size={14} />
             <span>{teams.length} equipes</span>
@@ -87,38 +87,38 @@ function EventoDetalheContent() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Link
           href={`/eventos/equipes?id=${id}`}
-          className="bg-white border border-gray-200 hover:border-red-700 rounded-2xl p-6 transition-colors group"
+          className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-red-700 rounded-2xl p-6 transition-colors group"
         >
-          <Users className="text-red-600 mb-3" size={24} />
-          <h2 className="text-gray-900 font-semibold text-lg">Equipes</h2>
-          <p className="text-gray-600 text-sm mt-1">Entre em uma equipe e escolha sua torcida</p>
+          <Users className="text-red-600 dark:text-red-400 mb-3" size={24} />
+          <h2 className="text-gray-900 dark:text-white font-semibold text-lg">Equipes</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Entre em uma equipe e escolha sua torcida</p>
         </Link>
 
         <Link
           href={`/eventos/confrontos?id=${id}`}
-          className="bg-white border border-gray-200 hover:border-red-700 rounded-2xl p-6 transition-colors group"
+          className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-red-700 rounded-2xl p-6 transition-colors group"
         >
-          <Trophy className="text-red-600 mb-3" size={24} />
-          <h2 className="text-gray-900 font-semibold text-lg">Confrontos</h2>
-          <p className="text-gray-600 text-sm mt-1">Acompanhe placares e enquetes ao vivo</p>
+          <Trophy className="text-red-600 dark:text-red-400 mb-3" size={24} />
+          <h2 className="text-gray-900 dark:text-white font-semibold text-lg">Confrontos</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Acompanhe placares e enquetes ao vivo</p>
         </Link>
 
         <Link
           href={`/eventos/pontuacao?id=${id}`}
-          className="bg-white border border-gray-200 hover:border-red-700 rounded-2xl p-6 transition-colors group"
+          className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-red-700 rounded-2xl p-6 transition-colors group"
         >
-          <BarChart3 className="text-red-600 mb-3" size={24} />
-          <h2 className="text-gray-900 font-semibold text-lg">Classificação</h2>
-          <p className="text-gray-600 text-sm mt-1">Tabela de pontos e ranking das equipes</p>
+          <BarChart3 className="text-red-600 dark:text-red-400 mb-3" size={24} />
+          <h2 className="text-gray-900 dark:text-white font-semibold text-lg">Classificação</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Tabela de pontos e ranking das equipes</p>
         </Link>
 
         <Link
           href={`/eventos/comunidade?id=${id}`}
-          className="bg-white border border-gray-200 hover:border-red-700 rounded-2xl p-6 transition-colors group"
+          className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-red-700 rounded-2xl p-6 transition-colors group"
         >
-          <Zap className="text-red-600 mb-3" size={24} />
-          <h2 className="text-gray-900 font-semibold text-lg">Comunidade</h2>
-          <p className="text-gray-600 text-sm mt-1">Posts, torcida e interação do evento</p>
+          <Zap className="text-red-600 dark:text-red-400 mb-3" size={24} />
+          <h2 className="text-gray-900 dark:text-white font-semibold text-lg">Comunidade</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Posts, torcida e interação do evento</p>
         </Link>
       </div>
     </div>

@@ -40,21 +40,21 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Trophy className="text-red-500" size={28} />
-            <span className="text-2xl font-bold text-gray-900">Nexus Arena</span>
+            <span className="text-2xl font-bold text-gray-900 dark:text-white">Nexus Arena</span>
           </div>
-          <h1 className="text-gray-900 text-xl font-semibold">Criar sua conta</h1>
-          <p className="text-gray-600 text-sm mt-1">Junte-se à arena da sua escola</p>
+          <h1 className="text-gray-900 dark:text-white text-xl font-semibold">Criar sua conta</h1>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">Junte-se à arena da sua escola</p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-8">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Nome completo</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Nome completo</label>
               <input
                 name="name"
                 type="text"
@@ -62,11 +62,11 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="Seu nome"
                 required
-                className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+                className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email</label>
               <input
                 name="email"
                 type="email"
@@ -74,11 +74,11 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 placeholder="seu@email.com"
                 required
-                className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+                className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Senha</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Senha</label>
               <input
                 name="password"
                 type="password"
@@ -87,16 +87,16 @@ export default function RegisterPage() {
                 placeholder="Mínimo 6 caracteres"
                 required
                 minLength={6}
-                className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+                className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Você é</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Você é</label>
               <select
                 name="role"
                 value={form.role}
                 onChange={handleChange}
-                className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500 transition-colors"
+                className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors"
               >
                 <option value="aluno">Aluno</option>
                 <option value="professor">Professor</option>
@@ -105,7 +105,7 @@ export default function RegisterPage() {
             </div>
 
             {error && (
-              <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-2.5">
+              <p className="text-red-600 dark:text-red-400 text-sm bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-900 rounded-lg px-4 py-2.5">
                 {error}
               </p>
             )}
@@ -119,9 +119,9 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <p className="text-center text-gray-600 text-sm mt-6">
+          <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-6">
             Já tem conta?{' '}
-            <Link href="/login" className="text-red-600 hover:text-red-700 font-medium">
+            <Link href="/login" className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium">
               Entrar
             </Link>
           </p>

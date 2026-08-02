@@ -125,7 +125,7 @@ function ConfrontosContent() {
     <div className="max-w-3xl mx-auto px-4 py-6">
       <Link
         href={`/eventos/detalhe?id=${eventoId}`}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm mb-6 transition-colors"
+        className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm mb-6 transition-colors"
       >
         <ArrowLeft size={16} />
         {evento?.name || 'Voltar ao evento'}
@@ -133,8 +133,8 @@ function ConfrontosContent() {
 
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Confrontos</h1>
-          <p className="text-gray-600 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Confrontos</h1>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
             {isAdmin ? 'Gerencie placares e enquetes em tempo real' : 'Placares e enquetes em tempo real'}
           </p>
         </div>
@@ -157,7 +157,7 @@ function ConfrontosContent() {
             className={`shrink-0 text-xs font-medium px-3 py-1.5 rounded-full border transition-colors ${
               modalidadeAtiva === 'todas'
                 ? 'bg-red-600 border-red-600 text-white'
-                : 'border-gray-300 text-gray-600 hover:text-gray-900'
+                : 'border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
             }`}
           >
             Todas
@@ -169,7 +169,7 @@ function ConfrontosContent() {
               className={`shrink-0 text-xs font-medium px-3 py-1.5 rounded-full border transition-colors ${
                 modalidadeAtiva === m.id
                   ? 'bg-red-600 border-red-600 text-white'
-                  : 'border-gray-300 text-gray-600 hover:text-gray-900'
+                  : 'border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
               }`}
             >
               {m.name}
@@ -181,12 +181,12 @@ function ConfrontosContent() {
                 value={novaModalidade}
                 onChange={e => setNovaModalidade(e.target.value)}
                 placeholder="Nova modalidade"
-                className="w-32 bg-gray-100 border border-dashed border-gray-300 rounded-full px-3 py-1.5 text-xs text-gray-900 placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+                className="w-32 bg-gray-100 dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-700 rounded-full px-3 py-1.5 text-xs text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
               />
               <button
                 type="submit"
                 disabled={criandoModalidade || !novaModalidade.trim()}
-                className="text-red-600 hover:text-red-700 disabled:opacity-40 shrink-0"
+                className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 disabled:opacity-40 shrink-0"
               >
                 <Sparkles size={16} />
               </button>
@@ -197,32 +197,32 @@ function ConfrontosContent() {
 
       {/* Formulário criar confronto */}
       {criando && (
-        <div className="bg-white border border-red-700 rounded-2xl p-5 mb-5">
+        <div className="bg-white dark:bg-gray-900 border border-red-700 rounded-2xl p-5 mb-5">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-gray-900 font-semibold">Novo confronto</h2>
-            <button onClick={() => { setCriando(false); setFormError('') }} className="text-gray-500 hover:text-gray-900 transition-colors">
+            <h2 className="text-gray-900 dark:text-white font-semibold">Novo confronto</h2>
+            <button onClick={() => { setCriando(false); setFormError('') }} className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
               <X size={18} />
             </button>
           </div>
 
           {teams.length < 2 ? (
-            <p className="text-yellow-600 text-sm">
+            <p className="text-yellow-600 dark:text-yellow-400 text-sm">
               Você precisa de pelo menos 2 equipes para criar um confronto.{' '}
               <Link href={`/eventos/equipes?id=${eventoId}`} className="underline">Criar equipes</Link>
             </p>
           ) : modalidades.length === 0 ? (
-            <p className="text-yellow-600 text-sm">
+            <p className="text-yellow-600 dark:text-yellow-400 text-sm">
               Crie pelo menos uma modalidade (ex: Futebol, Vôlei) acima antes de criar o confronto.
             </p>
           ) : (
             <form onSubmit={handleCriar} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Modalidade</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Modalidade</label>
                 <select
                   value={form.modalidade_id}
                   onChange={e => setForm(p => ({ ...p, modalidade_id: e.target.value }))}
                   required
-                  className="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 focus:outline-none focus:border-red-500 transition-colors"
+                  className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors"
                 >
                   <option value="">Selecione...</option>
                   {modalidades.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
@@ -231,24 +231,24 @@ function ConfrontosContent() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Equipe A</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Equipe A</label>
                   <select
                     value={form.team_a_id}
                     onChange={e => setForm(p => ({ ...p, team_a_id: e.target.value }))}
                     required
-                    className="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 focus:outline-none focus:border-red-500 transition-colors"
+                    className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors"
                   >
                     <option value="">Selecione...</option>
                     {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Equipe B</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Equipe B</label>
                   <select
                     value={form.team_b_id}
                     onChange={e => setForm(p => ({ ...p, team_b_id: e.target.value }))}
                     required
-                    className="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 focus:outline-none focus:border-red-500 transition-colors"
+                    className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors"
                   >
                     <option value="">Selecione...</option>
                     {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -257,17 +257,17 @@ function ConfrontosContent() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Data e hora (opcional)</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Data e hora (opcional)</label>
                 <input
                   type="datetime-local"
                   value={form.scheduled_at}
                   onChange={e => setForm(p => ({ ...p, scheduled_at: e.target.value }))}
-                  className="w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 focus:outline-none focus:border-red-500 transition-colors"
+                  className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors"
                 />
               </div>
 
               {formError && (
-                <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-2.5">{formError}</p>
+                <p className="text-red-600 dark:text-red-400 text-sm bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-900 rounded-lg px-4 py-2.5">{formError}</p>
               )}
 
               <div className="flex gap-3 pt-1">
@@ -281,7 +281,7 @@ function ConfrontosContent() {
                 <button
                   type="button"
                   onClick={() => { setCriando(false); setFormError('') }}
-                  className="px-4 border border-gray-300 text-gray-600 hover:text-gray-900 rounded-lg text-sm transition-colors"
+                  className="px-4 border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-lg text-sm transition-colors"
                 >
                   Cancelar
                 </button>
@@ -294,12 +294,12 @@ function ConfrontosContent() {
       {/* Lista de confrontos */}
       {loading ? (
         <div className="space-y-4">
-          {[1, 2].map(i => <div key={i} className="bg-white border border-gray-200 rounded-2xl p-5 animate-pulse h-40" />)}
+          {[1, 2].map(i => <div key={i} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 animate-pulse h-40" />)}
         </div>
       ) : matchesFiltrados.length === 0 ? (
         <div className="text-center py-16 text-gray-500 text-sm">
           {isAdmin
-            ? <><p>Nenhum confronto criado.</p><button onClick={() => setCriando(true)} className="text-red-600 hover:text-red-700 mt-2 inline-block">Criar o primeiro confronto</button></>
+            ? <><p>Nenhum confronto criado.</p><button onClick={() => setCriando(true)} className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 mt-2 inline-block">Criar o primeiro confronto</button></>
             : <p>Nenhum confronto criado ainda.</p>
           }
         </div>
@@ -308,7 +308,7 @@ function ConfrontosContent() {
           {matchesFiltrados.map(match => (
             <div key={match.id}>
               {modalidadeAtiva === 'todas' && modalidadeMap[match.modalidade_id] && (
-                <p className="text-red-600 text-xs font-medium mb-1.5 ml-1">
+                <p className="text-red-600 dark:text-red-400 text-xs font-medium mb-1.5 ml-1">
                   {modalidadeMap[match.modalidade_id].name}
                 </p>
               )}

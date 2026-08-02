@@ -10,17 +10,17 @@ import { useAuth } from '@/hooks/useAuth'
 function UpgradePrompt() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <Link href="/eventos" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm mb-6 transition-colors">
+      <Link href="/eventos" className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm mb-6 transition-colors">
         <ArrowLeft size={16} />
         Voltar para eventos
       </Link>
 
-      <div className="bg-white border border-gray-200 rounded-2xl p-8 text-center">
-        <div className="w-12 h-12 rounded-full bg-red-600/20 text-red-600 flex items-center justify-center mx-auto mb-4">
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 text-center">
+        <div className="w-12 h-12 rounded-full bg-red-600/20 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto mb-4">
           <Crown size={22} />
         </div>
-        <h1 className="text-xl font-bold text-gray-900 mb-2">Criar eventos é um recurso administrador</h1>
-        <p className="text-gray-600 text-sm max-w-md mx-auto mb-6">
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Criar eventos é um recurso administrador</h1>
+        <p className="text-gray-600 dark:text-gray-400 text-sm max-w-md mx-auto mb-6">
           Alunos e professores podem participar de eventos e gincanas livremente.
           Para criar e organizar um evento, faça upgrade para o plano administrador.
         </p>
@@ -74,64 +74,64 @@ export default function NovoEventoPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <Link href="/eventos" className="flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm mb-6 transition-colors">
+      <Link href="/eventos" className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm mb-6 transition-colors">
         <ArrowLeft size={16} />
         Voltar para eventos
       </Link>
 
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Novo evento</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Novo evento</h1>
 
-      <div className="bg-white border border-gray-200 rounded-2xl p-6">
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Nome do evento</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Nome do evento</label>
             <input
               name="name"
               value={form.name}
               onChange={handleChange}
               placeholder="Ex: Gincana do Semestre 2026"
               required
-              className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+              className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">Descrição</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Descrição</label>
             <textarea
               name="description"
               value={form.description}
               onChange={handleChange}
               placeholder="Descreva o evento..."
               rows={3}
-              className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors resize-none"
+              className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors resize-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Data de início</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Data de início</label>
               <input
                 name="start_date"
                 type="date"
                 value={form.start_date}
                 onChange={handleChange}
-                className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500 transition-colors"
+                className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Data de término</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Data de término</label>
               <input
                 name="end_date"
                 type="date"
                 value={form.end_date}
                 onChange={handleChange}
-                className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2.5 text-gray-900 focus:outline-none focus:border-red-500 transition-colors"
+                className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white focus:outline-none focus:border-red-500 transition-colors"
               />
             </div>
           </div>
 
           {error && (
-            <p className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-4 py-2.5">{error}</p>
+            <p className="text-red-600 dark:text-red-400 text-sm bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-900 rounded-lg px-4 py-2.5">{error}</p>
           )}
 
           <button

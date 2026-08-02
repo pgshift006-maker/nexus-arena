@@ -14,21 +14,21 @@ function CommentItem({ comment, currentUserId, onDelete }) {
     <div className="flex gap-2.5 group">
       <Avatar name={comment.author?.name} url={comment.author?.avatar_url} size={28} className="mt-0.5" />
       <div className="flex-1 min-w-0">
-        <div className="bg-gray-100 rounded-xl rounded-tl-none px-3 py-2">
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-xl rounded-tl-none px-3 py-2">
           <div className="flex items-center justify-between gap-2 mb-0.5">
-            <span className="text-gray-900 text-xs font-semibold">{comment.author?.name ?? 'Usuário'}</span>
+            <span className="text-gray-900 dark:text-white text-xs font-semibold">{comment.author?.name ?? 'Usuário'}</span>
             {isOwn && (
               <button
                 onClick={() => onDelete(comment.id)}
-                className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-600 transition-all"
+                className="opacity-0 group-hover:opacity-100 text-gray-400 dark:text-gray-600 hover:text-red-600 dark:hover:text-red-400 transition-all"
               >
                 <Trash2 size={11} />
               </button>
             )}
           </div>
-          <p className="text-gray-700 text-sm leading-relaxed">{comment.content}</p>
+          <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">{comment.content}</p>
         </div>
-        <p className="text-gray-400 text-xs mt-1 ml-1">{timeAgo(comment.created_at)}</p>
+        <p className="text-gray-400 dark:text-gray-600 text-xs mt-1 ml-1">{timeAgo(comment.created_at)}</p>
       </div>
     </div>
   )
@@ -104,19 +104,19 @@ export default function CommentSection({ postId, onCountChange }) {
   }
 
   return (
-    <div className="mt-3 pt-3 border-t border-gray-200">
+    <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-800">
       {/* Lista */}
       {loading ? (
         <div className="space-y-2 mb-3">
           {[1, 2].map(i => (
             <div key={i} className="flex gap-2.5 animate-pulse">
-              <div className="w-7 h-7 rounded-full bg-gray-100 shrink-0" />
-              <div className="flex-1 bg-gray-100 rounded-xl h-12" />
+              <div className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-800 shrink-0" />
+              <div className="flex-1 bg-gray-100 dark:bg-gray-800 rounded-xl h-12" />
             </div>
           ))}
         </div>
       ) : comments.length === 0 ? (
-        <p className="text-gray-400 text-xs mb-3 text-center">Nenhum comentário ainda. Seja o primeiro!</p>
+        <p className="text-gray-400 dark:text-gray-600 text-xs mb-3 text-center">Nenhum comentário ainda. Seja o primeiro!</p>
       ) : (
         <div className="space-y-3 mb-3 max-h-64 overflow-y-auto pr-1">
           {comments.map(c => (
@@ -134,20 +134,20 @@ export default function CommentSection({ postId, onCountChange }) {
       {/* Input */}
       <form onSubmit={handleSubmit} className="flex gap-2 items-end">
         <Avatar name={profile?.name} url={profile?.avatar_url} size={28} />
-        <div className="flex-1 flex items-end gap-2 bg-gray-100 border border-gray-300 rounded-xl px-3 py-2 focus-within:border-red-500 transition-colors">
+        <div className="flex-1 flex items-end gap-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl px-3 py-2 focus-within:border-red-500 transition-colors">
           <textarea
             value={text}
             onChange={e => setText(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Escreva um comentário... (Enter para enviar)"
             rows={1}
-            className="flex-1 bg-transparent text-sm text-gray-900 placeholder-gray-500 resize-none focus:outline-none max-h-24"
+            className="flex-1 bg-transparent text-sm text-gray-900 dark:text-white placeholder-gray-500 resize-none focus:outline-none max-h-24"
             style={{ minHeight: '20px' }}
           />
           <button
             type="submit"
             disabled={!text.trim() || sending}
-            className="text-red-600 hover:text-red-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0 pb-px"
+            className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 disabled:opacity-30 disabled:cursor-not-allowed transition-colors shrink-0 pb-px"
           >
             <Send size={15} />
           </button>
