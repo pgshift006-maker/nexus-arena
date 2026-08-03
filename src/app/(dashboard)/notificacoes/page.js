@@ -1,15 +1,21 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Bell, Check, Zap, Heart, Trophy } from 'lucide-react'
+import { Bell, Check, Zap, Heart, Trophy, UserPlus, Lock, X } from 'lucide-react'
 import { useNotifications } from '@/hooks/useNotifications'
 import { timeAgo } from '@/lib/utils'
 
 const typeIcon = {
-  like:       { icon: Heart,   color: 'text-red-600 dark:text-red-400',    bg: 'bg-red-50 dark:bg-red-950'    },
-  ao_vivo:    { icon: Zap,     color: 'text-green-600 dark:text-green-400',  bg: 'bg-green-50 dark:bg-green-950'  },
-  encerrado:  { icon: Trophy,  color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-950' },
-  new_match:  { icon: Trophy,  color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-950' },
+  like:                    { icon: Heart,    color: 'text-red-600 dark:text-red-400',    bg: 'bg-red-50 dark:bg-red-950'    },
+  ao_vivo:                 { icon: Zap,      color: 'text-green-600 dark:text-green-400',  bg: 'bg-green-50 dark:bg-green-950'  },
+  encerrado:               { icon: Trophy,   color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-950' },
+  new_match:               { icon: Trophy,   color: 'text-yellow-600 dark:text-yellow-400', bg: 'bg-yellow-50 dark:bg-yellow-950' },
+  event_join_request:      { icon: UserPlus, color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-950' },
+  event_invite:            { icon: Lock,     color: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-950' },
+  event_request_approved:  { icon: Check,    color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-950' },
+  event_request_declined:  { icon: X,        color: 'text-gray-600 dark:text-gray-400', bg: 'bg-gray-100 dark:bg-gray-800' },
+  event_invite_accepted:   { icon: Check,    color: 'text-green-600 dark:text-green-400', bg: 'bg-green-50 dark:bg-green-950' },
+  event_invite_declined:   { icon: X,        color: 'text-gray-600 dark:text-gray-400', bg: 'bg-gray-100 dark:bg-gray-800' },
 }
 
 export default function NotificacoesPage() {

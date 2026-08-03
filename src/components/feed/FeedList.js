@@ -16,8 +16,20 @@ async function fetchPosts(supabase, eventoId) {
     .order('created_at', { ascending: false })
     .limit(50)
 
-  if (eventoId) query = query.eq('event_id', eventoId)
-  else query = query.is('event_id', null)
+  if (eventoId) {
+    query = query.eq('event_id', eventoId)
+  } else {
+    // Feed geral: posts sem competição + posts de competições públicas.
+    // Não dá pra confiar só na RLS aqui — um participante aprovado de uma
+    // competição privada teria posts dela liberados por can_view_event(),
+    // mas a regra é que posts privados só aparecem na página da própria
+    // competição, nunca no feed geral.
+    const { data: publicEvents } = await supabase.from('events').select('id').eq('visibility', 'public')
+    const publicIds = (publicEvents ?? []).map(e => e.id)
+    query = publicIds.length > 0
+      ? query.or(`event_id.is.null,event_id.in.(${publicIds.join(',')})`)
+      : query.is('event_id', null)
+  }
 
   const { data, error } = await query
   if (error) console.error('fetchPosts:', error.message)

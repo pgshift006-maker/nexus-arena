@@ -1,53 +1,45 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { useRouter } from 'next/navigation'
-import { ArrowLeft, Crown, Globe, Lock, ImageIcon, X } from 'lucide-react'
+import { useEffect, useState, useRef, Suspense } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { ArrowLeft, Globe, Lock, ImageIcon, X, Save } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useAuth } from '@/hooks/useAuth'
 
-function UpgradePrompt() {
-  return (
-    <div className="max-w-2xl mx-auto px-4 py-6">
-      <Link href="/eventos" className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm mb-6 transition-colors">
-        <ArrowLeft size={16} />
-        Voltar para eventos
-      </Link>
-
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 text-center">
-        <div className="w-12 h-12 rounded-full bg-red-600/20 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto mb-4">
-          <Crown size={22} />
-        </div>
-        <h1 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Criar eventos é um recurso administrador</h1>
-        <p className="text-gray-600 dark:text-gray-400 text-sm max-w-md mx-auto mb-6">
-          Alunos e professores podem participar de eventos e gincanas livremente.
-          Para criar e organizar um evento, faça upgrade para o plano administrador.
-        </p>
-        <button
-          disabled
-          className="bg-red-600 opacity-50 cursor-not-allowed text-white font-semibold px-6 py-2.5 rounded-lg text-sm"
-        >
-          Fazer upgrade (em breve)
-        </button>
-      </div>
-    </div>
-  )
-}
-
-export default function NovoEventoPage() {
+function EditarEventoContent() {
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id')
   const router = useRouter()
-  const { user, profile } = useAuth()
-  const [form, setForm] = useState({ name: '', description: '', start_date: '', end_date: '', visibility: 'public' })
-  const [loading, setLoading] = useState(false)
+  const { user } = useAuth()
+  const fileInputRef = useRef(null)
+
+  const [form, setForm] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [coverFile, setCoverFile] = useState(null)
   const [coverPreview, setCoverPreview] = useState(null)
-  const fileInputRef = useRef(null)
 
-  if (profile && profile.role !== 'admin') {
-    return <UpgradePrompt />
-  }
+  useEffect(() => {
+    if (!id || !user) return
+    const supabase = createClient()
+    supabase.from('events').select('*').eq('id', id).single().then(({ data: ev }) => {
+      if (!ev || ev.created_by !== user.id) {
+        router.replace(`/eventos/detalhe?id=${id}`)
+        return
+      }
+      setForm({
+        name: ev.name,
+        description: ev.description ?? '',
+        start_date: ev.start_date ?? '',
+        end_date: ev.end_date ?? '',
+        visibility: ev.visibility,
+        cover_url: ev.cover_url,
+      })
+      setLoading(false)
+    })
+  }, [id, user])
 
   function handleChange(e) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -63,17 +55,18 @@ export default function NovoEventoPage() {
   function clearCover() {
     setCoverFile(null)
     setCoverPreview(null)
+    setForm(prev => ({ ...prev, cover_url: null }))
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
   async function handleSubmit(e) {
     e.preventDefault()
     if (!user) return
-    setLoading(true)
+    setSaving(true)
     setError('')
 
     const supabase = createClient()
-    let coverUrl = null
+    let coverUrl = form.cover_url
 
     if (coverFile) {
       const ext = coverFile.name.split('.').pop()
@@ -85,38 +78,48 @@ export default function NovoEventoPage() {
       }
     }
 
-    const { data, error } = await supabase
+    const { name, description, start_date, end_date, visibility } = form
+    const { error } = await supabase
       .from('events')
-      .insert({ ...form, cover_url: coverUrl, created_by: user.id, status: 'aguardando' })
-      .select()
-      .single()
+      .update({ name, description, start_date: start_date || null, end_date: end_date || null, visibility, cover_url: coverUrl })
+      .eq('id', id)
 
     if (error) {
-      setError('Erro ao criar evento. Tente novamente.')
-      setLoading(false)
+      setError('Erro ao salvar. Tente novamente.')
+      setSaving(false)
       return
     }
 
-    router.push(`/eventos/detalhe?id=${data.id}`)
+    router.push(`/eventos/detalhe?id=${id}`)
   }
+
+  if (loading || !form) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-6">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 animate-pulse h-64" />
+      </div>
+    )
+  }
+
+  const cover = coverPreview ?? form.cover_url
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <Link href="/eventos" className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm mb-6 transition-colors">
+      <Link href={`/eventos/detalhe?id=${id}`} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-sm mb-6 transition-colors">
         <ArrowLeft size={16} />
-        Voltar para eventos
+        Voltar para o evento
       </Link>
 
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Novo evento</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Editar evento</h1>
 
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Capa</label>
-            {coverPreview ? (
+            {cover ? (
               <div className="relative inline-block">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={coverPreview} alt="Pré-visualização da capa" className="h-32 w-full max-w-sm rounded-xl object-cover" />
+                <img src={cover} alt="Capa do evento" className="h-32 w-full max-w-sm rounded-xl object-cover" />
                 <button
                   type="button"
                   onClick={clearCover}
@@ -177,7 +180,6 @@ export default function NovoEventoPage() {
               name="name"
               value={form.name}
               onChange={handleChange}
-              placeholder="Ex: Gincana do Semestre 2026"
               required
               className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
             />
@@ -189,7 +191,6 @@ export default function NovoEventoPage() {
               name="description"
               value={form.description}
               onChange={handleChange}
-              placeholder="Descreva o evento..."
               rows={3}
               className="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors resize-none"
             />
@@ -224,13 +225,22 @@ export default function NovoEventoPage() {
 
           <button
             type="submit"
-            disabled={loading}
-            className="w-full bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-semibold py-2.5 rounded-lg transition-colors"
+            disabled={saving}
+            className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-semibold py-2.5 rounded-lg transition-colors"
           >
-            {loading ? 'Criando...' : 'Criar evento'}
+            <Save size={16} />
+            {saving ? 'Salvando...' : 'Salvar alterações'}
           </button>
         </form>
       </div>
     </div>
+  )
+}
+
+export default function EditarEventoPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="w-6 h-6 border-2 border-red-500 border-t-transparent rounded-full animate-spin" /></div>}>
+      <EditarEventoContent />
+    </Suspense>
   )
 }
